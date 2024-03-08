@@ -4,9 +4,6 @@ An opinionated CLI tool to run all your checks all at once. The command will onl
 
 https://github.com/aklinker1/check/assets/10101283/c8089e5c-e25f-4f59-8897-d2a6f97a3139
 
-> [!WARNING]
-> I have not actually published this to NPM yet.
-
 ```sh
 pnpm i @aklinker1/check
 pnpm check
