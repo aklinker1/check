@@ -63,8 +63,8 @@ export async function createTaskList<
           const res = await run({ input, succeed, warn, fail });
           if (states[i].state === "in-progress") {
             states[i].state = "success";
-            render();
           }
+          render();
           return res;
         } catch (err) {
           if (err instanceof Error) fail(err.message);
