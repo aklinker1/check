@@ -74,6 +74,7 @@ export async function createTaskList<
       }),
     );
     render({ lastRender: true });
+    console.log(states);
     return await result;
   } finally {
     clearInterval(renderInterval);
