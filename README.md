@@ -1,6 +1,6 @@
 # Check
 
-An opinionated CLI tool to run all your checks all at once. The command will only exit with code 0 when no warnings exist.
+An opinionated CLI tool to run all your checks all at once. The command will only exit with code 0 when no problems exist.
 
 https://github.com/aklinker1/check/assets/10101283/c8089e5c-e25f-4f59-8897-d2a6f97a3139
 
