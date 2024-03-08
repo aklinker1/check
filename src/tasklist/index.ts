@@ -40,7 +40,7 @@ export async function createTaskList<
   const renderInterval = setInterval(render, SPINNER_INTERVAL_MS);
 
   try {
-    const res = await Promise.all(
+    const result = await Promise.all(
       inputs.map(async (input, i) => {
         const succeed = (title?: string) => {
           if (title != null) states[i].title = title;
@@ -77,7 +77,7 @@ export async function createTaskList<
       }),
     );
     render({ lastRender: true });
-    return res;
+    return result;
   } finally {
     clearInterval(renderInterval);
   }
