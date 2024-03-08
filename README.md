@@ -9,7 +9,7 @@ pnpm check
 pnpm check --fix
 ```
 
-![Demo](./.github/assets/demo.gif)
+![Demo](./.github/assets/demo.mp4)
 
 To enable TS, ESLint, or Prettier, just install the package:
 
