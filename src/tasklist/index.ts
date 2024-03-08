@@ -13,7 +13,6 @@ export async function createTaskList<
     fail: (title?: string) => void;
   }) => Promise<TResult>,
 ): Promise<TResult[]> {
-  console.log(process.stderr.isTTY);
   const states = inputs.map((item) => ({
     title: item.name,
     state: "pending" as TaskState,
@@ -27,11 +26,13 @@ export async function createTaskList<
       // output above the task list
       readline.moveCursor(process.stderr, 0, -1 * states.length);
     }
-    states.forEach(({ state, title }) => {
-      readline.clearLine(process.stderr, 0);
-      const frames = SPINNER_FRAMES[state];
-      process.stderr.write(`${frames[tick % frames.length]} ${title}\n`);
-    });
+    if (isTty || opts?.firstRender || opts?.lastRender) {
+      states.forEach(({ state, title }) => {
+        readline.clearLine(process.stderr, 0);
+        const frames = SPINNER_FRAMES[state];
+        process.stderr.write(`${frames[tick % frames.length]} ${title}\n`);
+      });
+    }
     tick++;
   };
 
