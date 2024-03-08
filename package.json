@@ -1,0 +1,42 @@
+{
+  "name": "@aklinker1/check",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "bin": {
+    "check": "bin/check.mjs"
+  },
+  "scripts": {
+    "build": "bunx unbuild",
+    "check": "bun src/cli.ts"
+  },
+  "dependencies": {
+    "@antfu/utils": "^0.7.7",
+    "citty": "^0.1.6"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "unbuild": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "unbuild": {
+    "entries": [
+      {
+        "builder": "mkdist",
+        "input": "./src/",
+        "outDir": "./dist"
+      }
+    ],
+    "declaration": true
+  }
+}

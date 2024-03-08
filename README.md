@@ -19,11 +19,10 @@ pnpm i -D typescript eslint prettier
 
 ## Contributing
 
-Download and install dependencies for Rust CLI and demo TS app.
+This project is built using [`bun`](https://bun.sh)
 
 ```sh
-cargo build
-pushd demo
-    pnpm i
-popd
+bun i
+bun run build
+bun run check
 ```
