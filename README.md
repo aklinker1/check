@@ -9,7 +9,7 @@ pnpm check
 pnpm check --fix
 ```
 
-![Demo](./.github/assets/demo.mp4)
+https://github.com/aklinker1/check/assets/10101283/c8089e5c-e25f-4f59-8897-d2a6f97a3139
 
 To enable TS, ESLint, or Prettier, just install the package:
 
