@@ -21,7 +21,7 @@ export async function createTaskList<
 
   let tick = 0;
   const render = (opts?: { firstRender?: boolean; lastRender?: boolean }) => {
-    if (!opts?.firstRender) {
+    if (isTty && !opts?.firstRender) {
       // Don't move the cursor for the first render otherwise it will overwrite
       // output above the task list
       readline.moveCursor(process.stderr, 0, -1 * states.length);
