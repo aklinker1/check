@@ -13,6 +13,7 @@ export async function createTaskList<
     fail: (title?: string) => void;
   }) => Promise<TResult>,
 ): Promise<TResult[]> {
+  console.log(process.stderr.isTTY);
   const states = inputs.map((item) => ({
     title: item.name,
     state: "pending" as TaskState,
