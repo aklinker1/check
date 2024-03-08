@@ -16,7 +16,8 @@
   },
   "scripts": {
     "build": "bunx unbuild",
-    "check": "bun src/cli.ts"
+    "check": "bun src/cli.ts",
+    "prepublish": "bun build"
   },
   "dependencies": {
     "@antfu/utils": "^0.7.7",
