@@ -10,10 +10,8 @@ export const typescript: Tool = {
   check: (root) => execAndParse(root, bin, checkArgs, parseOuptut),
 };
 
-export const parseOuptut: OutputParser = ({ code, stdout }) => {
-  if (code === 0) return { type: "success" };
-
-  const problems = stdout.split(/\r?\n/).reduce<Problem[]>((acc, line) => {
+export const parseOuptut: OutputParser = ({ stdout }) => {
+  return stdout.split(/\r?\n/).reduce<Problem[]>((acc, line) => {
     const match = /^(\S+?)\(([0-9]+),([0-9]+)\): \w+? (TS[0-9]+): (.*)$/.exec(
       line,
     );
@@ -31,8 +29,4 @@ export const parseOuptut: OutputParser = ({ code, stdout }) => {
     }
     return acc;
   }, []);
-  return {
-    type: "error",
-    problems,
-  };
 };

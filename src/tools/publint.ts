@@ -10,11 +10,9 @@ export const publint: Tool = {
   check: (root) => execAndParse(root, bin, args, parseOuptut),
 };
 
-export const parseOuptut: OutputParser = ({ code, stdout, stderr }) => {
-  if (code === 0) return { type: "success" };
-
+export const parseOuptut: OutputParser = ({ stdout }) => {
   let kind: ProblemKind = "warning";
-  const problems = stdout.split(/\r?\n/).reduce<Problem[]>((acc, line) => {
+  return stdout.split(/\r?\n/).reduce<Problem[]>((acc, line) => {
     if (line.includes("Errors:")) {
       kind = "error";
       return acc;
@@ -30,9 +28,4 @@ export const parseOuptut: OutputParser = ({ code, stdout, stderr }) => {
 
     return acc;
   }, []);
-
-  return {
-    type: kind,
-    problems,
-  };
 };

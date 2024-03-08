@@ -1,9 +1,11 @@
 # Check
 
-> [!WARNING]
-> I have not actually published this to NPM yet.
+An opinionated CLI tool to run all your checks all at once. The command will only exit with code 0 when no warnings exist.
 
 https://github.com/aklinker1/check/assets/10101283/c8089e5c-e25f-4f59-8897-d2a6f97a3139
+
+> [!WARNING]
+> I have not actually published this to NPM yet.
 
 ```sh
 pnpm i @aklinker1/check
@@ -36,3 +38,9 @@ bun check --help
 bun check
 bun check demo
 ```
+
+### Adding Tools
+
+I've added everything I use, so if you want to add support for another tool, feel free.
+
+Just copy `src/tools/prettier.ts` and `src/tools/prettier.test.ts`, update the implementations (yes, tests are required), and add your new tool to `src/tools/index.ts`'s `ALL_TOOLS` export.

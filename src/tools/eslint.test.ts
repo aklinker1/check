@@ -11,30 +11,27 @@ describe("ESLint", () => {
     const stderr = "";
     const code = 1;
 
-    expect(parseOuptut({ code, stdout, stderr })).toEqual({
-      type: "error",
-      problems: [
-        {
-          file: "/path/to/check/demo/test.ts",
-          message: "'test' is assigned a value but never used.",
-          kind: "warning",
-          location: {
-            line: 1,
-            column: 7,
-          },
-          rule: "@typescript-eslint/no-unused-vars",
+    expect(parseOuptut({ code, stdout, stderr })).toEqual([
+      {
+        file: "/path/to/check/demo/test.ts",
+        message: "'test' is assigned a value but never used.",
+        kind: "warning",
+        location: {
+          line: 1,
+          column: 7,
         },
-        {
-          file: "/path/to/check/demo/test.ts",
-          message: "'variable' is assigned a value but never used.",
-          kind: "error",
-          location: {
-            line: 5,
-            column: 7,
-          },
-          rule: "@typescript-eslint/no-unused-vars",
+        rule: "@typescript-eslint/no-unused-vars",
+      },
+      {
+        file: "/path/to/check/demo/test.ts",
+        message: "'variable' is assigned a value but never used.",
+        kind: "error",
+        location: {
+          line: 5,
+          column: 7,
         },
-      ],
-    });
+        rule: "@typescript-eslint/no-unused-vars",
+      },
+    ]);
   });
 });

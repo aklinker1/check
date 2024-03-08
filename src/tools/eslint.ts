@@ -19,10 +19,8 @@ export const eslint: Tool = {
   fix: (root) => execAndParse(root, bin, [...args, "--fix"], parseOuptut),
 };
 
-export const parseOuptut: OutputParser = ({ code, stdout, stderr }) => {
-  if (code === 0) return { type: "success" };
-
-  const problems = `${stdout}\n${stderr}`
+export const parseOuptut: OutputParser = ({ stdout, stderr }) => {
+  return `${stdout}\n${stderr}`
     .split(/\r?\n/)
     .reduce<Problem[]>((acc, line) => {
       const match =
@@ -43,11 +41,4 @@ export const parseOuptut: OutputParser = ({ code, stdout, stderr }) => {
       }
       return acc;
     }, []);
-
-  return {
-    type: problems.some((problem) => problem.kind === "error")
-      ? "error"
-      : "warning",
-    problems,
-  };
 };

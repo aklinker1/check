@@ -25,27 +25,11 @@ export interface Tool {
   /**
    * Run the tool, only checking for problems.
    */
-  check: (root: string | undefined) => Promise<Output>;
+  check: (root: string | undefined) => Promise<Problem[]>;
   /**
    * Run the tool, but fix problems if possible. If the tool doesn't support fixing problems, `check` will be called instead.
    */
-  fix?: (root: string | undefined) => Promise<Output>;
-}
-
-export type Output = OutputSuccess | OutputWarning | OutputError;
-
-export interface OutputSuccess {
-  type: "success";
-}
-
-export interface OutputWarning {
-  type: "warning";
-  problems: Problem[];
-}
-
-export interface OutputError {
-  type: "error";
-  problems: Problem[];
+  fix?: (root: string | undefined) => Promise<Problem[]>;
 }
 
 export interface Problem {
@@ -67,4 +51,4 @@ export type OutputParser = (data: {
   code: number;
   stdout: string;
   stderr: string;
-}) => Output;
+}) => Problem[];

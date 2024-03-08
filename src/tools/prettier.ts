@@ -3,7 +3,7 @@ import { execAndParse, isBinInstalled } from "../utils";
 
 const bin = "node_modules/.bin/prettier";
 const checkArgs = [".", "--list-different"];
-const fixArgs = [".", "--fix"];
+const fixArgs = [".", "-w"];
 
 export const prettier: Tool = {
   name: "Prettier",
@@ -12,12 +12,11 @@ export const prettier: Tool = {
   fix: (root) => execAndParse(root, bin, fixArgs, parseOuptut),
 };
 
-export const parseOuptut: OutputParser = ({ code, stdout }) => {
-  if (code === 0) return { type: "success" };
-
-  const problems = stdout
+export const parseOuptut: OutputParser = ({ stdout }) => {
+  return stdout
     .trim()
     .split(/\r?\n/)
+    .filter((line) => !!line)
     .map(
       (line): Problem => ({
         file: line.trim(),
@@ -25,8 +24,4 @@ export const parseOuptut: OutputParser = ({ code, stdout }) => {
         message: "Not formatted.",
       }),
     );
-  return {
-    type: "warning",
-    problems,
-  };
 };

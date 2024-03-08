@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import type { OutputParser, Output } from "./types";
+import type { OutputParser, Problem } from "./types";
 import { stat } from "fs/promises";
 import { resolve } from "node:path";
 
@@ -47,7 +47,7 @@ export async function execAndParse(
   bin: string,
   args: string[],
   parser: OutputParser,
-): Promise<Output> {
+): Promise<Problem[]> {
   const res = await exec(resolveRoot(root, bin), args, { cwd: root });
   if (res.exitCode == null) throw Error("Exit code was null");
   return parser({

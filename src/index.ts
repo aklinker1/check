@@ -26,33 +26,30 @@ export async function check(options: CheckOptions = {}) {
       const startTime = performance.now();
       // Run checks
       const fn = fix ? tool.fix ?? tool.check : tool.check;
-      const output = await fn(root);
-      if ("problems" in output) {
-        // Ensure problems are absolute paths relative to the root dir
-        output.problems.forEach((problem) => {
-          problem.file = resolve(root ?? process.cwd(), problem.file);
-        });
-      }
+      const problems = await fn(root);
+      // Ensure problems are absolute paths relative to the root dir
+      problems.forEach((problem) => {
+        problem.file = resolve(root ?? process.cwd(), problem.file);
+      });
       const duration = humanMs(performance.now() - startTime);
 
       const title = `${tool.name} ${dim(`(${duration})`)}`;
-      if (output.type === "error") fail(title);
-      else if (output.type === "warning") warn(title);
+      const errorCount = problems.filter((p) => p.kind === "error").length;
+      if (errorCount > 0) fail(title);
+      else if (problems.length > 0) warn(title);
       else succeed(title);
 
-      return output;
+      return problems;
     },
   );
 
-  const problems = results
-    .flatMap((result) => (result.type === "success" ? [] : result.problems))
-    .sort((l, r) => {
-      const nameCompare = l.file.localeCompare(r.file);
-      if (nameCompare !== 0) return nameCompare;
-      const lineCompare = (l.location?.line ?? 0) - (r.location?.line ?? 0);
-      if (lineCompare !== 0) return lineCompare;
-      return (l.location?.column ?? 0) - (r.location?.column ?? 0);
-    });
+  const problems = results.flat().sort((l, r) => {
+    const nameCompare = l.file.localeCompare(r.file);
+    if (nameCompare !== 0) return nameCompare;
+    const lineCompare = (l.location?.line ?? 0) - (r.location?.line ?? 0);
+    if (lineCompare !== 0) return lineCompare;
+    return (l.location?.column ?? 0) - (r.location?.column ?? 0);
+  });
 
   console.log();
   if (problems.length === 0) {
@@ -86,8 +83,7 @@ export async function check(options: CheckOptions = {}) {
 
   // Exit based on number of commands that exited with code >= 1
   console.log();
-  const failedChecks = results.filter((res) => res.type === "error").length;
-  process.exit(failedChecks);
+  process.exit(problems.length);
 }
 
 async function findInstalledTools(root: string | undefined): Promise<Tool[]> {

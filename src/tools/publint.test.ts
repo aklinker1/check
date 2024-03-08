@@ -14,27 +14,23 @@ Errors:
     const stderr = "";
     const code = 1;
 
-    expect(parseOuptut({ code, stdout, stderr })).toEqual({
-      type: "error",
-      problems: [
-        {
-          file: "package.json",
-          message: "Consider being better lolz.",
-          kind: "warning",
-        },
-        {
-          file: "package.json",
-          message:
-            'pkg.exports["."].import types is not exported. Consider adding pkg.exports["."].import.types: "./dist/index.d.ts" to be compatible with TypeScript\'s "moduleResolution": "bundler" compiler option.',
-          kind: "warning",
-        },
-        {
-          file: "package.json",
-          message:
-            "pkg.module is ./dist/index.cjs but the file does not exist.",
-          kind: "error",
-        },
-      ],
-    });
+    expect(parseOuptut({ code, stdout, stderr })).toEqual([
+      {
+        file: "package.json",
+        message: "Consider being better lolz.",
+        kind: "warning",
+      },
+      {
+        file: "package.json",
+        message:
+          'pkg.exports["."].import types is not exported. Consider adding pkg.exports["."].import.types: "./dist/index.d.ts" to be compatible with TypeScript\'s "moduleResolution": "bundler" compiler option.',
+        kind: "warning",
+      },
+      {
+        file: "package.json",
+        message: "pkg.module is ./dist/index.cjs but the file does not exist.",
+        kind: "error",
+      },
+    ]);
   });
 });
