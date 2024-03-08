@@ -21,16 +21,18 @@ export async function createTaskList<
 
   let tick = 0;
   const render = (opts?: { firstRender?: boolean; lastRender?: boolean }) => {
-    if (!opts?.firstRender) {
+    if (isTty && !opts?.firstRender) {
       // Don't move the cursor for the first render otherwise it will overwrite
       // output above the task list
       readline.moveCursor(process.stderr, 0, -1 * states.length);
     }
-    states.forEach(({ state, title }) => {
-      readline.clearLine(process.stderr, 0);
-      const frames = SPINNER_FRAMES[state];
-      process.stderr.write(`${frames[tick % frames.length]} ${title}\n`);
-    });
+    if (isTty || opts?.firstRender || opts?.lastRender) {
+      states.forEach(({ state, title }) => {
+        readline.clearLine(process.stderr, 0);
+        const frames = SPINNER_FRAMES[state];
+        process.stderr.write(`${frames[tick % frames.length]} ${title}\n`);
+      });
+    }
     tick++;
   };
 
@@ -38,7 +40,7 @@ export async function createTaskList<
   const renderInterval = setInterval(render, SPINNER_INTERVAL_MS);
 
   try {
-    const result = Promise.all(
+    const result = await Promise.all(
       inputs.map(async (input, i) => {
         const succeed = (title?: string) => {
           if (title != null) states[i].title = title;
@@ -58,21 +60,24 @@ export async function createTaskList<
         try {
           states[i].state = "in-progress";
           render();
+
           const res = await run({ input, succeed, warn, fail });
-          if (states[i].state === "in-progress") {
-            states[i].state = "success";
-            render();
-          }
+
+          if (states[i].state === "in-progress") states[i].state = "success";
+          render();
+
           return res;
         } catch (err) {
           if (err instanceof Error) fail(err.message);
           else fail(String(err));
+          render();
+
           throw err;
         }
       }),
     );
     render({ lastRender: true });
-    return await result;
+    return result;
   } finally {
     clearInterval(renderInterval);
   }
