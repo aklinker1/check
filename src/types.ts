@@ -1,6 +1,8 @@
 export interface CheckOptions {
   /**
    * Set to true to fix problems that can be automatically fixed.
+   *
+   * Defaults to `true` outside CI, and `false` inside CI.
    */
   fix?: boolean;
   /**

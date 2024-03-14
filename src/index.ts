@@ -4,11 +4,12 @@ import { p } from "@antfu/utils";
 import { bold, cyan, debug, dim, humanMs, isDebug, red, yellow } from "./utils";
 import { createTaskList } from "./tasklist";
 import { relative, resolve, sep } from "node:path";
+import { isCI } from "ci-info";
 
 export type * from "./types";
 
 export async function check(options: CheckOptions = {}) {
-  const { debug, fix, root } = options;
+  const { debug, fix = !isCI, root } = options;
   if (debug) {
     process.env.DEBUG = "true";
   }
