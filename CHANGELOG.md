@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0.3
+
+[compare changes](https://github.com/aklinker1/check/compare/v1.0.2...v1.0.3)
+
+### 🩹 Fixes
+
+- **prettier:** Handle --fix errors and non-error output correctly ([95bdaf6](https://github.com/aklinker1/check/commit/95bdaf6))
+
 ## v1.0.2
 
 [compare changes](https://github.com/aklinker1/check/compare/v1.0.1...v1.0.2)
