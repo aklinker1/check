@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.0.2
+
+[compare changes](https://github.com/aklinker1/check/compare/v1.0.1...v1.0.2)
+
+### 🩹 Fixes
+
+- Debug commands and output ([5aa3525](https://github.com/aklinker1/check/commit/5aa3525))
+
+### 🏡 Chore
+
+- Remove email from changelogs ([5e754d7](https://github.com/aklinker1/check/commit/5e754d7))
+
 ## v1.0.1
 
 [compare changes](https://github.com/aklinker1/check/compare/v1.0.0...v1.0.1)
