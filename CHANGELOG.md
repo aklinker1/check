@@ -1,6 +1,5 @@
 # Changelog
 
-
 ## v1.0.1
 
 [compare changes](https://github.com/aklinker1/check/compare/v1.0.0...v1.0.1)
@@ -24,8 +23,3 @@
 - Add validation workflow ([#1](https://github.com/aklinker1/check/pull/1))
 - Add release workflow ([0e0393b](https://github.com/aklinker1/check/commit/0e0393b))
 - Fix prepublish script ([ee2e2db](https://github.com/aklinker1/check/commit/ee2e2db))
-
-### ❤️ Contributors
-
-- Aaron <aaronklinker1@gmail.com>
-

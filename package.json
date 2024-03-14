@@ -43,5 +43,8 @@
       }
     ],
     "declaration": true
+  },
+  "changelog": {
+    "excludeAuthors": ["aaronklinker1@gmail.com"]
   }
 }
