@@ -12,11 +12,32 @@ export const prettier: Tool = {
   fix: (root) => execAndParse(root, bin, fixArgs, parseOuptut),
 };
 
-export const parseOuptut: OutputParser = ({ stdout }) => {
+export const parseOuptut: OutputParser = ({ stdout, stderr }) => {
+  if (stderr.trim()) {
+    return stderr.split(/\r?\n/).reduce<Problem[]>((acc, line) => {
+      const match = /^\[(.+?)\]\s?(.+?):\s?(.*?)\s?\(([0-9]+):([0-9])\)$/.exec(
+        line,
+      );
+      if (match) {
+        acc.push({
+          file: match[2],
+          kind: match[1] === "error" ? "error" : "warning",
+          message: match[3],
+          location: {
+            line: parseInt(match[4], 10),
+            column: parseInt(match[5], 10),
+          },
+        });
+      }
+      return acc;
+    }, []);
+  }
+
   return stdout
     .trim()
     .split(/\r?\n/)
-    .filter((line) => !!line)
+    .map((line) => line.trim())
+    .filter((line) => !!line && !line.includes(" "))
     .map(
       (line): Problem => ({
         file: line.trim(),
