@@ -15,7 +15,7 @@
     "check": "bin/check.mjs"
   },
   "scripts": {
-    "build": "bunx unbuild",
+    "build": "bunx --bun unbuild",
     "check": "bun src/cli.ts",
     "prepublish": "bun build"
   },
