@@ -50,6 +50,7 @@ export async function execAndParse(
 ): Promise<Problem[]> {
   const res = await exec(resolveRoot(root, bin), args, { cwd: root });
   if (res.exitCode == null) throw Error("Exit code was null");
+  if (isDebug()) console.debug({ bin, args, root, ...res });
   return parser({
     code: res.exitCode,
     stderr: res.stderr,
