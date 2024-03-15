@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.1.0
+
+[compare changes](https://github.com/aklinker1/check/compare/v1.0.5...v1.1.0)
+
+### 🚀 Enhancements
+
+- Report location once if multiple problems are in the same location ([98a2cd5](https://github.com/aklinker1/check/commit/98a2cd5))
+
+### 🏡 Chore
+
+- Use named regex capture groups ([3931c0c](https://github.com/aklinker1/check/commit/3931c0c))
+
 ## v1.0.5
 
 [compare changes](https://github.com/aklinker1/check/compare/v1.0.4...v1.0.5)
