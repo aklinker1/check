@@ -17,12 +17,12 @@ export const parseOuptut: OutputParser = ({ stdout }) => {
       kind = "error";
       return acc;
     }
-    const match = /^[0-9]+\.\s?(.*)$/.exec(line);
-    if (match == null) return acc;
+    const groups = /^[0-9]+\.\s?(?<message>.*)$/.exec(line)?.groups;
+    if (groups == null) return acc;
 
     acc.push({
       kind,
-      message: match[1],
+      message: groups.message,
       file: "package.json",
     });
 

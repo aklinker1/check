@@ -15,17 +15,18 @@ export const prettier: Tool = {
 export const parseOuptut: OutputParser = ({ stdout, stderr }) => {
   if (stderr.trim()) {
     return stderr.split(/\r?\n/).reduce<Problem[]>((acc, line) => {
-      const match = /^\[(.+?)\]\s?(.+?):\s?(.*?)\s?\(([0-9]+):([0-9])\)$/.exec(
-        line,
-      );
-      if (match) {
+      const groups =
+        /^\[(?<kind>.+?)\]\s?(?<file>.+?):\s?(?<message>.*?)\s?\((?<line>[0-9]+):(?<column>[0-9])\)$/.exec(
+          line,
+        )?.groups;
+      if (groups) {
         acc.push({
-          file: match[2],
-          kind: match[1] === "error" ? "error" : "warning",
-          message: match[3],
+          file: groups.file,
+          kind: groups.kind === "error" ? "error" : "warning",
+          message: groups.message,
           location: {
-            line: parseInt(match[4], 10),
-            column: parseInt(match[5], 10),
+            line: parseInt(groups.line, 10),
+            column: parseInt(groups.column, 10),
           },
         });
       }

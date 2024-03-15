@@ -12,19 +12,20 @@ export const typescript: Tool = {
 
 export const parseOuptut: OutputParser = ({ stdout }) => {
   return stdout.split(/\r?\n/).reduce<Problem[]>((acc, line) => {
-    const match = /^(\S+?)\(([0-9]+),([0-9]+)\): \w+? (TS[0-9]+): (.*)$/.exec(
-      line,
-    );
-    if (match) {
+    const groups =
+      /^(?<file>\S+?)\((?<line>[0-9]+),(?<column>[0-9]+)\): \w+? (?<rule>TS[0-9]+): (?<message>.*)$/.exec(
+        line,
+      )?.groups;
+    if (groups) {
       acc.push({
-        file: match[1],
+        file: groups.file,
         kind: "error",
-        message: match[5],
+        message: groups.message,
         location: {
-          line: parseInt(match[2], 10),
-          column: parseInt(match[3], 10),
+          line: parseInt(groups.line, 10),
+          column: parseInt(groups.column, 10),
         },
-        rule: match[4],
+        rule: groups.rule,
       });
     }
     return acc;

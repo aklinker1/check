@@ -23,20 +23,20 @@ export const parseOuptut: OutputParser = ({ stdout, stderr }) => {
   return `${stdout}\n${stderr}`
     .split(/\r?\n/)
     .reduce<Problem[]>((acc, line) => {
-      const match =
-        /^(.*?): line ([0-9]+), col ([0-9]+), (\S+) - (.*?) \((\S*?)\)$/.exec(
+      const groups =
+        /^(?<file>.*?): line (?<line>[0-9]+), col (?<column>[0-9]+), (?<kind>\S+) - (?<message>.*?) \((?<rule>\S*?)\)$/.exec(
           line,
-        );
-      if (match) {
+        )?.groups;
+      if (groups) {
         acc.push({
-          file: match[1],
-          kind: match[4] === "Warning" ? "warning" : "error",
-          message: match[5],
+          file: groups.file,
+          kind: groups.kind === "Warning" ? "warning" : "error",
+          message: groups.message,
           location: {
-            line: parseInt(match[2], 10),
-            column: parseInt(match[3], 10),
+            line: parseInt(groups.line, 10),
+            column: parseInt(groups.column, 10),
           },
-          rule: match[6],
+          rule: groups.rule,
         });
       }
       return acc;
