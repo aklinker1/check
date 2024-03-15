@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0.4
+
+[compare changes](https://github.com/aklinker1/check/compare/v1.0.3...v1.0.4)
+
+### 🩹 Fixes
+
+- Add NPM package metadata ([fdae83b](https://github.com/aklinker1/check/commit/fdae83b))
+
 ## v1.0.3
 
 [compare changes](https://github.com/aklinker1/check/compare/v1.0.2...v1.0.3)
