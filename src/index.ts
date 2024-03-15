@@ -44,14 +44,7 @@ export async function check(options: CheckOptions = {}) {
     },
   );
 
-  const problems = results.flat().sort((l, r) => {
-    const nameCompare = l.file.localeCompare(r.file);
-    if (nameCompare !== 0) return nameCompare;
-    const lineCompare = (l.location?.line ?? 0) - (r.location?.line ?? 0);
-    if (lineCompare !== 0) return lineCompare;
-    return (l.location?.column ?? 0) - (r.location?.column ?? 0);
-  });
-
+  const problems = results.flat();
   console.log();
   if (problems.length === 0) {
     process.exit(0);
@@ -59,9 +52,21 @@ export async function check(options: CheckOptions = {}) {
 
   // Print problems
   console.log(plural(problems.length, "Problem:", "Problems:"));
-  problems.forEach((problem) => {
-    console.log(renderProblem(problem));
+  problems.sort((l, r) => {
+    const nameCompare = l.file.localeCompare(r.file);
+    if (nameCompare !== 0) return nameCompare;
+    const lineCompare = (l.location?.line ?? 0) - (r.location?.line ?? 0);
+    if (lineCompare !== 0) return lineCompare;
+    return (l.location?.column ?? 0) - (r.location?.column ?? 0);
   });
+  const groupedProblems = problems.reduce((acc, problem) => {
+    const locationHash = `${problem.file}:${problem.location?.line}:${problem.location?.column}`;
+    const list = acc.get(locationHash) ?? [];
+    list.push(problem);
+    acc.set(locationHash, list);
+    return acc;
+  }, new Map<string, Problem[]>());
+  console.log([...groupedProblems.values()].map(renderProblemGroup).join("\n"));
 
   // Print files
   const files = Object.entries(
@@ -113,13 +118,19 @@ function plural(count: number, singular: string, plural: string): string {
   return `${count} ${count === 1 ? singular : plural} `;
 }
 
-export function renderProblem(problem: Problem): string {
-  const icon = problem.kind === "warning" ? bold(yellow("⚠")) : bold(red("✗"));
+export function renderProblemGroup(problems: Problem[]): string {
+  const renderedProblems = problems.map(renderProblem);
+  const problem = problems[0];
   const path = relative(process.cwd(), problem.file);
   const location = problem.location
     ? `${path}:${problem.location.line}:${problem.location.column}`
     : path;
-  const source = problem.rule ? dim(` (${problem.rule})`) : "";
   const link = dim(`→ .${sep}${location}`);
-  return `${icon} ${problem.message}${source}\n  ${link}`;
+  return `${renderedProblems.join("\n")}\n  ${link}`;
+}
+
+export function renderProblem(problem: Problem): string {
+  const icon = problem.kind === "warning" ? bold(yellow("⚠")) : bold(red("✗"));
+  const source = problem.rule ? dim(` (${problem.rule})`) : "";
+  return `${icon} ${problem.message}${source}`;
 }
