@@ -37,7 +37,7 @@ jobs:
       - name: NPM
         run: |
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
-          pnpm publish
+          pnpm publish --no-git-checks
 
       - name: GitHub Release
         run: bunx changelogen@latest gh release --token ${{ secrets.GITHUB_TOKEN }}
