@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0.5
+
+[compare changes](https://github.com/aklinker1/check/compare/v1.0.4...v1.0.5)
+
+### 🩹 Fixes
+
+- Release workflow ([df7cac0](https://github.com/aklinker1/check/commit/df7cac0))
+
 ## v1.0.4
 
 [compare changes](https://github.com/aklinker1/check/compare/v1.0.3...v1.0.4)
