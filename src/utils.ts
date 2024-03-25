@@ -24,7 +24,7 @@ function exec(
   opts?: { cwd?: string },
 ): Promise<{ stderr: string; stdout: string; exitCode: number | null }> {
   return new Promise((resolve, reject) => {
-    const child = spawn(cmd, args, opts);
+    const child = spawn(cmd, args, { ...opts, shell: true });
     let stderr = "";
     let stdout = "";
     child.stdout.on("data", (data) => {
