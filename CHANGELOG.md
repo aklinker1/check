@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.1.1
+
+[compare changes](https://github.com/aklinker1/check/compare/v1.1.0...v1.1.1)
+
+### 🩹 Fixes
+
+- **windows:** Use `shell: true` when spawning commands ([4cc63a9](https://github.com/aklinker1/check/commit/4cc63a9))
+
 ## v1.1.0
 
 [compare changes](https://github.com/aklinker1/check/compare/v1.0.5...v1.1.0)
