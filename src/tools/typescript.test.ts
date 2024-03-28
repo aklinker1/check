@@ -33,4 +33,25 @@ test.ts(5,24): error TS7006: Parameter 'a' implicitly has an 'any' type.
       },
     ]);
   });
+
+  it("should parse vue-tsc output", () => {
+    const stdout = `src/components/CustomListsPref.vue(46,6): error TS2345: Argument of type '{ vale: string; }' is not assignable to parameter of type 'Partial<{}> & Omit<{ readonly value: string; "onUpdate:value"?: ((newValue: string) => any) | undefined; } & VNodeProps & AllowedComponentProps & ComponentCustomProps & Readonly<...> & { ...; }, never> & Record<...>'.
+      Property 'value' is missing in type '{ vale: string; }' but required in type 'Omit<{ readonly value: string; "onUpdate:value"?: ((newValue: string) => any) | undefined; } & VNodeProps & AllowedComponentProps & ComponentCustomProps & Readonly<...> & { ...; }, never>'.`;
+    const stderr = "";
+    const code = 1;
+
+    expect(parseOuptut({ code, stdout, stderr })).toEqual([
+      {
+        file: "src/components/CustomListsPref.vue",
+        message:
+          "Argument of type '{ vale: string; }' is not assignable to parameter of type 'Partial<{}> & Omit<{ readonly value: string; \"onUpdate:value\"?: ((newValue: string) => any) | undefined; } & VNodeProps & AllowedComponentProps & ComponentCustomProps & Readonly<...> & { ...; }, never> & Record<...>'.",
+        kind: "error",
+        location: {
+          line: 46,
+          column: 6,
+        },
+        rule: "TS2345",
+      },
+    ]);
+  });
 });

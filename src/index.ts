@@ -93,10 +93,13 @@ export async function check(options: CheckOptions = {}) {
 }
 
 async function findInstalledTools(root: string | undefined): Promise<Tool[]> {
-  const status = await p(ALL_TOOLS).map(async (tool) => ({
-    tool,
-    isInstalled: await tool.isInstalled(root),
-  })).promise;
+  const status = await p(ALL_TOOLS).map(async (tool) => {
+    const t = typeof tool === "function" ? await tool(root) : tool;
+    return {
+      tool: t,
+      isInstalled: await t.isInstalled(root),
+    };
+  }).promise;
 
   if (isDebug()) {
     const getTools = (isInstalled: boolean) =>

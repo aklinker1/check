@@ -1,13 +1,27 @@
 import type { Tool, OutputParser, Problem } from "../types";
-import { execAndParse, isBinInstalled } from "../utils";
+import { debug, execAndParse, isBinInstalled } from "../utils";
 
-const bin = "node_modules/.bin/tsc";
-const checkArgs = ["--noEmit", "--pretty", "false"];
+const tsc = {
+  bin: "node_modules/.bin/tsc",
+  args: ["--noEmit", "--pretty", "false"],
+};
+const vueTsc = {
+  bin: "node_modules/.bin/vue-tsc",
+  args: ["--noEmit", "--pretty", "false"],
+};
 
-export const typescript: Tool = {
-  name: "TypeScript",
-  isInstalled: (root) => isBinInstalled(bin, root),
-  check: (root) => execAndParse(root, bin, checkArgs, parseOuptut),
+export const typescript = async (root: string | undefined): Promise<Tool> => {
+  const isVueTsc = await isBinInstalled(vueTsc.bin, root);
+  debug("TypeScript: Is vue-tsc installed? " + isVueTsc);
+  const cmd = isVueTsc ? vueTsc : tsc;
+  const name = isVueTsc ? "TypeScript (Vue)" : "Typescript";
+  return {
+    name,
+    // Always check if tsc is installed
+    isInstalled: (root) => isBinInstalled(tsc.bin, root),
+    // Execute the other TSC binary if necessary
+    check: async (root) => execAndParse(root, cmd.bin, cmd.args, parseOuptut),
+  };
 };
 
 export const parseOuptut: OutputParser = ({ stdout }) => {
