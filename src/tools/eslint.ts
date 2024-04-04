@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 
 export const eslint: ToolDefinition = ({ binDir, root }) => {
   const bin = resolve(root, binDir, "eslint");
-  const args = [
+  const checkArgs = [
     ".",
     "--ext",
     ".js,.ts,.jsx,.tsx,.mjs,.mts,.cjs,.cts,.vue",
@@ -13,12 +13,13 @@ export const eslint: ToolDefinition = ({ binDir, root }) => {
     "--max-warnings",
     "0",
   ];
+  const fixArgs = [...checkArgs, "--fix"];
 
   return {
     name: "ESLint",
     isInstalled: () => isBinInstalled(bin),
-    check: () => execAndParse(bin, args, root, parseOuptut),
-    fix: () => execAndParse(bin, [...args, "--fix"], root, parseOuptut),
+    check: () => execAndParse(bin, checkArgs, root, parseOuptut),
+    fix: () => execAndParse(bin, fixArgs, root, parseOuptut),
   };
 };
 
