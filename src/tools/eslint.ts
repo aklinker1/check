@@ -1,22 +1,25 @@
-import type { OutputParser, Problem, Tool } from "../types";
+import type { OutputParser, Problem, ToolDefinition } from "../types";
 import { isBinInstalled, execAndParse } from "../utils";
+import { resolve } from "node:path";
 
-const bin = "node_modules/.bin/eslint";
-const args = [
-  ".",
-  "--ext",
-  ".js,.ts,.jsx,.tsx,.mjs,.mts,.cjs,.cts,.vue",
-  "--format",
-  "compact",
-  "--max-warnings",
-  "0",
-];
+export const eslint: ToolDefinition = ({ binDir, root }) => {
+  const bin = resolve(root, binDir, "eslint");
+  const args = [
+    ".",
+    "--ext",
+    ".js,.ts,.jsx,.tsx,.mjs,.mts,.cjs,.cts,.vue",
+    "--format",
+    "compact",
+    "--max-warnings",
+    "0",
+  ];
 
-export const eslint: Tool = {
-  name: "ESLint",
-  isInstalled: (root) => isBinInstalled(bin, root),
-  check: (root) => execAndParse(root, bin, args, parseOuptut),
-  fix: (root) => execAndParse(root, bin, [...args, "--fix"], parseOuptut),
+  return {
+    name: "ESLint",
+    isInstalled: () => isBinInstalled(bin),
+    check: () => execAndParse(bin, args, root, parseOuptut),
+    fix: () => execAndParse(bin, [...args, "--fix"], root, parseOuptut),
+  };
 };
 
 export const parseOuptut: OutputParser = ({ stdout, stderr }) => {

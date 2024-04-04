@@ -1,5 +1,5 @@
 import { ALL_TOOLS } from "./tools";
-import type { CheckOptions, Tool, Problem } from "./types";
+import type { CheckOptions, Tool, Problem, ToolDefinition } from "./types";
 import { p } from "@antfu/utils";
 import { bold, cyan, debug, dim, humanMs, isDebug, red, yellow } from "./utils";
 import { createTaskList } from "./tasklist";
@@ -9,13 +9,18 @@ import { isCI } from "ci-info";
 export type * from "./types";
 
 export async function check(options: CheckOptions = {}) {
-  const { debug, fix = !isCI, root } = options;
+  const {
+    debug,
+    fix = !isCI,
+    root = process.cwd(),
+    binDir = "node_modules/.bin",
+  } = options;
   if (debug) {
     process.env.DEBUG = "true";
   }
   console.log();
 
-  const tools = await findInstalledTools(root);
+  const tools = await findInstalledTools({ root, binDir });
   if (tools.length === 0) {
     console.log("No tools detected! Run with --debug for more info");
     console.log();
@@ -27,7 +32,7 @@ export async function check(options: CheckOptions = {}) {
       const startTime = performance.now();
       // Run checks
       const fn = fix ? tool.fix ?? tool.check : tool.check;
-      const problems = await fn(root);
+      const problems = await fn();
       // Ensure problems are absolute paths relative to the root dir
       problems.forEach((problem) => {
         problem.file = resolve(root ?? process.cwd(), problem.file);
@@ -92,13 +97,13 @@ export async function check(options: CheckOptions = {}) {
   process.exit(problems.length);
 }
 
-async function findInstalledTools(root: string | undefined): Promise<Tool[]> {
-  const status = await p(ALL_TOOLS).map(async (tool) => {
-    const t = typeof tool === "function" ? await tool(root) : tool;
-    return {
-      tool: t,
-      isInstalled: await t.isInstalled(root),
-    };
+async function findInstalledTools(
+  opts: Parameters<ToolDefinition>[0],
+): Promise<Tool[]> {
+  const status = await p(ALL_TOOLS).map(async (def) => {
+    const tool = await def(opts);
+    const isInstalled = await tool.isInstalled();
+    return { tool, isInstalled };
   }).promise;
 
   if (isDebug()) {

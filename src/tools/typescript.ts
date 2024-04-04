@@ -1,26 +1,30 @@
-import type { Tool, OutputParser, Problem } from "../types";
+import type { Tool, OutputParser, Problem, ToolDefinition } from "../types";
 import { debug, execAndParse, isBinInstalled } from "../utils";
+import { resolve } from "node:path";
 
-const tsc = {
-  bin: "node_modules/.bin/tsc",
-  args: ["--noEmit", "--pretty", "false"],
-};
-const vueTsc = {
-  bin: "node_modules/.bin/vue-tsc",
-  args: ["--noEmit", "--pretty", "false"],
-};
+export const typescript: ToolDefinition = async ({
+  root,
+  binDir,
+}): Promise<Tool> => {
+  const tsc = {
+    bin: resolve(root, binDir, "tsc"),
+    args: ["--noEmit", "--pretty", "false"],
+  };
+  const vueTsc = {
+    bin: resolve(root, binDir, "vue-tsc"),
+    args: ["--noEmit", "--pretty", "false"],
+  };
 
-export const typescript = async (root: string | undefined): Promise<Tool> => {
-  const isVueTsc = await isBinInstalled(vueTsc.bin, root);
+  const isVueTsc = await isBinInstalled(vueTsc.bin);
   debug("TypeScript: Is vue-tsc installed? " + isVueTsc);
   const cmd = isVueTsc ? vueTsc : tsc;
   const name = isVueTsc ? "TypeScript (Vue)" : "Typescript";
   return {
     name,
     // Always check if tsc is installed
-    isInstalled: (root) => isBinInstalled(tsc.bin, root),
+    isInstalled: () => isBinInstalled(tsc.bin),
     // Execute the other TSC binary if necessary
-    check: async (root) => execAndParse(root, cmd.bin, cmd.args, parseOuptut),
+    check: async () => execAndParse(cmd.bin, cmd.args, root, parseOuptut),
   };
 };
 

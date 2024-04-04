@@ -22,6 +22,11 @@ const main = defineCommand({
       alias: "d",
       description: "Enable debug logs",
     },
+    binDir: {
+      type: "string",
+      alias: "b",
+      description: "Directory where binaries are located",
+    },
   },
   async run(ctx) {
     await check(ctx.args);
