@@ -28,9 +28,7 @@
   },
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "bin": {
     "check": "bin/check.mjs"
   },
@@ -63,8 +61,6 @@
     "declaration": true
   },
   "changelog": {
-    "excludeAuthors": [
-      "aaronklinker1@gmail.com"
-    ]
+    "excludeAuthors": ["aaronklinker1@gmail.com"]
   }
 }
