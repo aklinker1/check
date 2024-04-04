@@ -1,7 +1,16 @@
 import { ALL_TOOLS } from "./tools";
 import type { CheckOptions, Tool, Problem, ToolDefinition } from "./types";
 import { p } from "@antfu/utils";
-import { bold, cyan, debug, dim, humanMs, isDebug, red, yellow } from "./utils";
+import {
+  bold,
+  cyan,
+  debug as debugLog,
+  dim,
+  humanMs,
+  isDebug,
+  red,
+  yellow,
+} from "./utils";
 import { createTaskList } from "./tasklist";
 import { relative, resolve, sep } from "node:path";
 import { isCI } from "ci-info";
@@ -19,10 +28,16 @@ export async function check(options: CheckOptions = {}) {
     process.env.DEBUG = "true";
   }
   console.log();
+  debugLog("Options:" + JSON.stringify(options));
+  debugLog("Resolved options:" + JSON.stringify({ debug, fix, root, binDir }));
 
   const tools = await findInstalledTools({ root, binDir });
   if (tools.length === 0) {
-    console.log("No tools detected! Run with --debug for more info");
+    if (isDebug()) {
+      console.log("No tools detected!");
+    } else {
+      console.log("No tools detected! Run with --debug for more info");
+    }
     console.log();
     process.exit(1);
   }
