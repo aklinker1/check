@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.3.0
+
+[compare changes](https://github.com/aklinker1/check/compare/v1.2.0...v1.3.0)
+
+### 🚀 Enhancements
+
+- Add custom `binDir` option ([#4](https://github.com/aklinker1/check/pull/4))
+
+### 🏡 Chore
+
+- Upgrade bun to 1.1, enable windows tests ([#5](https://github.com/aklinker1/check/pull/5))
+
 ## v1.2.0
 
 [compare changes](https://github.com/aklinker1/check/compare/v1.1.1...v1.2.0)
