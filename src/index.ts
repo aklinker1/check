@@ -128,9 +128,9 @@ async function findInstalledTools(
         .map((item) => item.tool.name)
         .join(", ");
     const installed = getTools(true);
-    debug(`Installed: ${installed || "(none)"}`);
+    debugLog(`Installed: ${installed || "(none)"}`);
     const skipped = getTools(false);
-    debug(`Skipping: ${skipped || "(none)"} `);
+    debugLog(`Skipping: ${skipped || "(none)"} `);
   }
   return status
     .filter(({ isInstalled }) => isInstalled)
