@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.3.1
+
+[compare changes](https://github.com/aklinker1/check/compare/v1.3.0...v1.3.1)
+
+### 🩹 Fixes
+
+- Improve debug logs ([5603bd4](https://github.com/aklinker1/check/commit/5603bd4))
+
+### 🏡 Chore
+
+- Fix type error ([3e351ba](https://github.com/aklinker1/check/commit/3e351ba))
+
 ## v1.3.0
 
 [compare changes](https://github.com/aklinker1/check/compare/v1.2.0...v1.3.0)
