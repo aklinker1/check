@@ -13,7 +13,13 @@ export interface CheckOptions {
    * Set to true to enable debug logs.
    */
   debug?: boolean;
+  binDir?: string;
 }
+
+export type ToolDefinition = (opts: {
+  root: string;
+  binDir: string;
+}) => Promise<Tool> | Tool;
 
 export interface Tool {
   /**
@@ -23,15 +29,15 @@ export interface Tool {
   /**
    * Check if the tool is installed.
    */
-  isInstalled: (root: string | undefined) => Promise<boolean>;
+  isInstalled: () => Promise<boolean>;
   /**
    * Run the tool, only checking for problems.
    */
-  check: (root: string | undefined) => Promise<Problem[]>;
+  check: () => Promise<Problem[]>;
   /**
    * Run the tool, but fix problems if possible. If the tool doesn't support fixing problems, `check` will be called instead.
    */
-  fix?: (root: string | undefined) => Promise<Problem[]>;
+  fix?: () => Promise<Problem[]>;
 }
 
 export interface Problem {

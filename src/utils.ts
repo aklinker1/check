@@ -1,17 +1,11 @@
 import { spawn } from "node:child_process";
 import type { OutputParser, Problem } from "./types";
 import { stat } from "fs/promises";
-import { resolve } from "node:path";
 
-function resolveRoot(root: string | undefined, ...path: string[]): string {
-  return root != null ? resolve(root, ...path) : resolve(...path);
-}
-
-export async function isBinInstalled(bin: string, root?: string) {
+export async function isBinInstalled(bin: string) {
   try {
-    const binPath = resolveRoot(root, bin);
-    if (isDebug()) debug(`Checking if binary exists: ${binPath}`);
-    await stat(resolveRoot(root, bin));
+    if (isDebug()) debug(`Checking if binary exists: ${bin}`);
+    await stat(bin);
     return true;
   } catch (err) {
     return false;
@@ -43,14 +37,14 @@ function exec(
 }
 
 export async function execAndParse(
-  root: string | undefined,
   bin: string,
   args: string[],
+  cwd: string,
   parser: OutputParser,
 ): Promise<Problem[]> {
-  const res = await exec(resolveRoot(root, bin), args, { cwd: root });
+  const res = await exec(bin, args, { cwd });
   if (res.exitCode == null) throw Error("Exit code was null");
-  if (isDebug()) console.debug({ bin, args, root, ...res });
+  if (isDebug()) console.debug({ bin, args, cwd, ...res });
   return parser({
     code: res.exitCode,
     stderr: res.stderr,

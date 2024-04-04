@@ -1,13 +1,24 @@
-import type { OutputParser, Problem, ProblemKind, Tool } from "../types";
+import type {
+  OutputParser,
+  Problem,
+  ProblemKind,
+  ToolDefinition,
+} from "../types";
 import { isBinInstalled, execAndParse } from "../utils";
+import { resolve } from "node:path";
 
-const bin = "node_modules/.bin/publint";
+const bin = "publint";
 const args: string[] = [];
 
-export const publint: Tool = {
-  name: "Publint",
-  isInstalled: (root) => isBinInstalled(bin, root),
-  check: (root) => execAndParse(root, bin, args, parseOuptut),
+export const publint: ToolDefinition = ({ binDir, root }) => {
+  const bin = resolve(root, binDir, "publint");
+  const args: string[] = [];
+
+  return {
+    name: "Publint",
+    isInstalled: () => isBinInstalled(bin),
+    check: () => execAndParse(bin, args, root, parseOuptut),
+  };
 };
 
 export const parseOuptut: OutputParser = ({ stdout }) => {
