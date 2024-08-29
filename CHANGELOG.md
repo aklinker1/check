@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.4.0
+
+[compare changes](https://github.com/aklinker1/check/compare/v1.3.1...v1.4.0)
+
+### 🚀 Enhancements
+
+- Add oxlint support ([#7](https://github.com/aklinker1/check/pull/7))
+
 ## v1.3.1
 
 [compare changes](https://github.com/aklinker1/check/compare/v1.3.0...v1.3.1)
