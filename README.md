@@ -13,7 +13,7 @@ pnpm check --fix
 To enable checks for any of the following modules, just install them:
 
 ```sh
-pnpm i -D typescript eslint prettier publint
+pnpm i -D typescript oxlint prettier publint eslint
 ```
 
 ## Contributing
