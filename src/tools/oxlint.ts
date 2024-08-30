@@ -5,7 +5,7 @@ import { resolve } from "node:path";
 export const oxlint: ToolDefinition = ({ binDir, root }) => {
   const bin = resolve(root, binDir, "oxlint");
   const checkArgs = [
-    "--format=linux",
+    "--format=unix",
     "--deny-warnings",
     "--ignore-pattern='**/dist/**'",
     "--ignore-pattern='**/node_modules/**'",
