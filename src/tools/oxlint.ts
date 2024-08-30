@@ -4,8 +4,15 @@ import { resolve } from "node:path";
 
 export const oxlint: ToolDefinition = ({ binDir, root }) => {
   const bin = resolve(root, binDir, "oxlint");
-  const checkArgs = ["--format=linux"];
-  const fixArgs = ["--format=linux", "--fix"];
+  const checkArgs = [
+    "--format=linux",
+    "--deny-warnings",
+    "--ignore-pattern='**/dist/**'",
+    "--ignore-pattern='**/node_modules/**'",
+    "--ignore-pattern='**/.output/**'",
+    "--ignore-pattern='**/coverage/**'",
+  ];
+  const fixArgs = [...checkArgs, "--fix"];
 
   return {
     name: "Oxlint",
