@@ -19,7 +19,7 @@ export const parseOuptut: OutputParser = ({ stdout, stderr }) => {
   if (stderr.trim()) {
     return stderr.split(/\r?\n/).reduce<Problem[]>((acc, line) => {
       const groups =
-        /^\[(?<kind>.+?)\]\s?(?<file>.+?):\s?(?<message>.*?)\s?\((?<line>[0-9]+):(?<column>[0-9])\)$/.exec(
+        /^\[(?<kind>.+?)\]\s?(?<file>.+?):\s?(?<message>.*?)\s?\((?<line>[0-9]+):(?<column>[0-9]+)\)$/.exec(
           line,
         )?.groups;
       if (groups) {
