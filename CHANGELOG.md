@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.4.1
+
+[compare changes](https://github.com/aklinker1/check/compare/v1.4.0...v1.4.1)
+
+### 🩹 Fixes
+
+- Fail oxlint on warnings, ignore folders by default ([c419433](https://github.com/aklinker1/check/commit/c419433))
+
 ## v1.4.0
 
 [compare changes](https://github.com/aklinker1/check/compare/v1.3.1...v1.4.0)
