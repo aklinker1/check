@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.4.2
+
+[compare changes](https://github.com/aklinker1/check/compare/v1.4.1...v1.4.2)
+
+### 🩹 Fixes
+
+- Use correct format for oxlint ([7df1102](https://github.com/aklinker1/check/commit/7df1102))
+
 ## v1.4.1
 
 [compare changes](https://github.com/aklinker1/check/compare/v1.4.0...v1.4.1)
