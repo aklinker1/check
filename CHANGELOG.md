@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.4.3
+
+[compare changes](https://github.com/aklinker1/check/compare/v1.4.2...v1.4.3)
+
+### 🩹 Fixes
+
+- Fix missing errors from oxlint and prettier ([e3ad041](https://github.com/aklinker1/check/commit/e3ad041))
+
 ## v1.4.2
 
 [compare changes](https://github.com/aklinker1/check/compare/v1.4.1...v1.4.2)
