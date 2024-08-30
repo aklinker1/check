@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.4.5
+
+[compare changes](https://github.com/aklinker1/check/compare/v1.4.4...v1.4.5)
+
+### 🩹 Fixes
+
+- **oxlint:** Default to using .oxlintignore ([573d1e4](https://github.com/aklinker1/check/commit/573d1e4))
+
 ## v1.4.4
 
 [compare changes](https://github.com/aklinker1/check/compare/v1.4.3...v1.4.4)
