@@ -7,6 +7,7 @@ export const oxlint: ToolDefinition = ({ binDir, root }) => {
   const checkArgs = [
     "--format=unix",
     "--deny-warnings",
+    "--ignore-path=.oxlintignore",
     "--ignore-pattern='**/dist/**'",
     "--ignore-pattern='**/node_modules/**'",
     "--ignore-pattern='**/.output/**'",
