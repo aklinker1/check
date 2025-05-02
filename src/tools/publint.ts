@@ -5,15 +5,15 @@ import type {
   ToolDefinition,
 } from "../types";
 import { execAndParse } from "../utils";
-import { resolve } from "node:path";
 
 export const publint: ToolDefinition = ({ root }) => {
+  const bin = "publint";
   const args: string[] = [];
 
   return {
     name: "Publint",
     packageName: "publint",
-    check: () => execAndParse("publint", args, root, parseOutput),
+    check: () => execAndParse(bin, args, root, parseOutput),
   };
 };
 
