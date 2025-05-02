@@ -1,5 +1,5 @@
 import { describe, it, expect } from "bun:test";
-import { parseOuptut } from "./eslint";
+import { parseOutput } from "./eslint";
 
 describe("ESLint", () => {
   it("should properly parse output", async () => {
@@ -11,7 +11,7 @@ describe("ESLint", () => {
     const stderr = "";
     const code = 1;
 
-    expect(parseOuptut({ code, stdout, stderr })).toEqual([
+    expect(parseOutput({ code, stdout, stderr })).toEqual([
       {
         file: "/path/to/check/demo/test.ts",
         message: "'test' is assigned a value but never used.",

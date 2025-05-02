@@ -13,12 +13,11 @@ export interface CheckOptions {
    * Set to true to enable debug logs.
    */
   debug?: boolean;
-  binDir?: string;
 }
 
 export type ToolDefinition = (opts: {
   root: string;
-  binDir: string;
+  packageJson: any;
 }) => Promise<Tool> | Tool;
 
 export interface Tool {
@@ -27,9 +26,9 @@ export interface Tool {
    */
   name: string;
   /**
-   * Check if the tool is installed.
+   * The name of the package in your `package.json`. If present, this tool will be ran.
    */
-  isInstalled: () => Promise<boolean>;
+  packageName: string;
   /**
    * Run the tool, only checking for problems.
    */

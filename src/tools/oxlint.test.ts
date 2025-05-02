@@ -1,5 +1,5 @@
 import { describe, it, expect } from "bun:test";
-import { parseOuptut } from "./oxlint";
+import { parseOutput } from "./oxlint";
 
 describe("Oxlint", () => {
   it("should properly parse output", async () => {
@@ -14,7 +14,7 @@ test.ts:8:7: Missing initializer in const declaration [Error]
     const stderr = "";
     const code = 1;
 
-    expect(parseOuptut({ code, stdout, stderr })).toEqual([
+    expect(parseOutput({ code, stdout, stderr })).toEqual([
       {
         file: "test.ts",
         message: "Variable 'test' is declared but never used.",

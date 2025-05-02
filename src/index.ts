@@ -12,26 +12,27 @@ import {
   yellow,
 } from "./utils";
 import { createTaskList } from "./tasklist";
-import { relative, resolve, sep } from "node:path";
+import { relative, resolve, sep, join } from "node:path";
 import { isCI } from "ci-info";
+import { readFile } from "node:fs/promises";
 
 export type * from "./types";
 
 export async function check(options: CheckOptions = {}) {
-  const {
-    debug,
-    fix = !isCI,
-    root = process.cwd(),
-    binDir = "node_modules/.bin",
-  } = options;
+  const { debug, fix = !isCI, root = process.cwd() } = options;
+  const packageJson = JSON.parse(
+    await readFile(join(root, "package.json"), "utf8"),
+  );
   if (debug) {
     process.env.DEBUG = "true";
   }
   console.log();
   debugLog("Options:" + JSON.stringify(options));
-  debugLog("Resolved options:" + JSON.stringify({ debug, fix, root, binDir }));
+  debugLog(
+    "Resolved options:" + JSON.stringify({ debug, fix, root, packageJson }),
+  );
 
-  const tools = await findInstalledTools({ root, binDir });
+  const tools = await findInstalledTools({ root, packageJson });
   if (tools.length === 0) {
     if (isDebug()) {
       console.log("No tools detected!");
@@ -46,7 +47,7 @@ export async function check(options: CheckOptions = {}) {
     async ({ input: tool, fail, succeed, warn }) => {
       const startTime = performance.now();
       // Run checks
-      const fn = fix ? tool.fix ?? tool.check : tool.check;
+      const fn = fix ? (tool.fix ?? tool.check) : tool.check;
       const problems = await fn();
       // Ensure problems are absolute paths relative to the root dir
       problems.forEach((problem) => {
@@ -117,7 +118,7 @@ async function findInstalledTools(
 ): Promise<Tool[]> {
   const status = await p(ALL_TOOLS).map(async (def) => {
     const tool = await def(opts);
-    const isInstalled = await tool.isInstalled();
+    const isInstalled = !!opts.packageJson.devDependencies?.[tool.packageName];
     return { tool, isInstalled };
   }).promise;
 

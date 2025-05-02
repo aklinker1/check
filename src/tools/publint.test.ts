@@ -1,5 +1,5 @@
 import { describe, it, expect } from "bun:test";
-import { parseOuptut } from "./publint";
+import { parseOutput } from "./publint";
 
 describe("Publint", () => {
   it("should properly parse output", async () => {
@@ -14,7 +14,7 @@ Errors:
     const stderr = "";
     const code = 1;
 
-    expect(parseOuptut({ code, stdout, stderr })).toEqual([
+    expect(parseOutput({ code, stdout, stderr })).toEqual([
       {
         file: "package.json",
         message: "Consider being better lolz.",

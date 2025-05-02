@@ -1,6 +1,7 @@
 {
   "name": "@aklinker1/check",
   "version": "1.4.5",
+  "packageManager": "bun@1.2.11",
   "repository": {
     "type": "git",
     "url": "https://github.com/aklinker1/check"
@@ -29,6 +30,7 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
+    "bin",
     "dist"
   ],
   "bin": {
@@ -37,6 +39,7 @@
   "scripts": {
     "build": "bunx --bun unbuild",
     "check": "bun src/cli.ts",
+    "prepack": "bun run build",
     "prepublish": "bun run build"
   },
   "dependencies": {
@@ -47,10 +50,8 @@
   "devDependencies": {
     "@types/bun": "latest",
     "publint": "^0.2.7",
+    "typescript": "^5.0.0",
     "unbuild": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
   },
   "unbuild": {
     "entries": [
