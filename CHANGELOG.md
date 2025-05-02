@@ -1,5 +1,17 @@
 # Changelog
 
+## v2.0.0
+
+[compare changes](https://github.com/aklinker1/check/compare/v1.4.5...v2.0.0)
+
+### 🩹 Fixes
+
+- ⚠️  Detect tools by looking in package.json ([#8](https://github.com/aklinker1/check/pull/8))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Detect tools by looking in package.json ([#8](https://github.com/aklinker1/check/pull/8))
+
 ## v1.4.5
 
 [compare changes](https://github.com/aklinker1/check/compare/v1.4.4...v1.4.5)
