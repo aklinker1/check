@@ -23,9 +23,6 @@ This project is built using [`bun`](https://bun.sh). Demo project uses PNPM.
 ```sh
 # Setup
 bun i
-pushd demo
-    pnpm i
-popd
 
 # Build NPM package
 bun run build
@@ -33,7 +30,6 @@ bun run build
 # Run checks
 bun check --help
 bun check
-bun check demo
 ```
 
 ### Adding Tools
