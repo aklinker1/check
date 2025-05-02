@@ -1,16 +1,5 @@
 import { spawn } from "node:child_process";
 import type { OutputParser, Problem } from "./types";
-import { stat } from "fs/promises";
-
-export async function isBinInstalled(bin: string) {
-  try {
-    if (isDebug()) debug(`Checking if binary exists: ${bin}`);
-    await stat(bin);
-    return true;
-  } catch (err) {
-    return false;
-  }
-}
 
 function exec(
   cmd: string,

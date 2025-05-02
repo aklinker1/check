@@ -1,5 +1,5 @@
 import { describe, it, expect } from "bun:test";
-import { parseOuptut } from "./prettier";
+import { parseOutput } from "./prettier";
 
 describe("Prettier", () => {
   it("should properly parse output", async () => {
@@ -9,7 +9,7 @@ describe("Prettier", () => {
     const stderr = "";
     const code = 1;
 
-    expect(parseOuptut({ code, stdout, stderr })).toEqual([
+    expect(parseOutput({ code, stdout, stderr })).toEqual([
       {
         file: "target/.rustc_info.json",
         message: "Not formatted.",
@@ -28,7 +28,7 @@ describe("Prettier", () => {
     const stderr = "";
     const code = 1;
 
-    expect(parseOuptut({ code, stdout, stderr })).toEqual([]);
+    expect(parseOutput({ code, stdout, stderr })).toEqual([]);
   });
 
   it("should return an error when a syntax error is reported", async () => {
@@ -51,7 +51,7 @@ describe("Prettier", () => {
   .prettierrc.yml 0ms`;
     const code = 1;
 
-    expect(parseOuptut({ code, stdout, stderr })).toEqual([
+    expect(parseOutput({ code, stdout, stderr })).toEqual([
       {
         file: "src/components/CommitDiff.ts",
         message: "SyntaxError: Declaration or statement expected.",
@@ -81,6 +81,6 @@ describe("Prettier", () => {
 .prettierrc.yml 0ms`;
     const code = 0;
 
-    expect(parseOuptut({ code, stdout, stderr })).toEqual([]);
+    expect(parseOutput({ code, stdout, stderr })).toEqual([]);
   });
 });

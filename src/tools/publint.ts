@@ -4,24 +4,20 @@ import type {
   ProblemKind,
   ToolDefinition,
 } from "../types";
-import { isBinInstalled, execAndParse } from "../utils";
+import { execAndParse } from "../utils";
 import { resolve } from "node:path";
 
-const bin = "publint";
-const args: string[] = [];
-
-export const publint: ToolDefinition = ({ binDir, root }) => {
-  const bin = resolve(root, binDir, "publint");
+export const publint: ToolDefinition = ({ root }) => {
   const args: string[] = [];
 
   return {
     name: "Publint",
-    isInstalled: () => isBinInstalled(bin),
-    check: () => execAndParse(bin, args, root, parseOuptut),
+    packageName: "publint",
+    check: () => execAndParse("publint", args, root, parseOutput),
   };
 };
 
-export const parseOuptut: OutputParser = ({ stdout }) => {
+export const parseOutput: OutputParser = ({ stdout }) => {
   let kind: ProblemKind = "warning";
   return stdout.split(/\r?\n/).reduce<Problem[]>((acc, line) => {
     if (line.includes("Errors:")) {

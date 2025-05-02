@@ -1,9 +1,8 @@
 import type { OutputParser, Problem, ToolDefinition } from "../types";
-import { execAndParse, isBinInstalled } from "../utils";
-import { resolve } from "node:path";
+import { execAndParse } from "../utils";
 
-export const oxlint: ToolDefinition = ({ binDir, root }) => {
-  const bin = resolve(root, binDir, "oxlint");
+export const oxlint: ToolDefinition = ({ root }) => {
+  const bin = "oxlint";
   const checkArgs = [
     "--format=unix",
     "--deny-warnings",
@@ -17,13 +16,13 @@ export const oxlint: ToolDefinition = ({ binDir, root }) => {
 
   return {
     name: "Oxlint",
-    isInstalled: () => isBinInstalled(bin),
-    check: () => execAndParse(bin, checkArgs, root, parseOuptut),
-    fix: () => execAndParse(bin, fixArgs, root, parseOuptut),
+    packageName: "oxlint",
+    check: () => execAndParse(bin, checkArgs, root, parseOutput),
+    fix: () => execAndParse(bin, fixArgs, root, parseOutput),
   };
 };
 
-export const parseOuptut: OutputParser = ({ stdout, stderr }) => {
+export const parseOutput: OutputParser = ({ stdout }) => {
   if (stdout.trim()) {
     return stdout.split(/\r?\n/).reduce<Problem[]>((acc, line) => {
       const groups =

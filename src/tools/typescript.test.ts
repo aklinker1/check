@@ -1,5 +1,5 @@
 import { describe, it, expect } from "bun:test";
-import { parseOuptut } from "./typescript";
+import { parseOutput } from "./typescript";
 
 describe("TypeScript", () => {
   it("should properly parse output", async () => {
@@ -9,7 +9,7 @@ test.ts(5,24): error TS7006: Parameter 'a' implicitly has an 'any' type.
     const stderr = "";
     const code = 1;
 
-    expect(parseOuptut({ code, stdout, stderr })).toEqual([
+    expect(parseOutput({ code, stdout, stderr })).toEqual([
       {
         file: "test.ts",
         message:
@@ -40,7 +40,7 @@ test.ts(5,24): error TS7006: Parameter 'a' implicitly has an 'any' type.
     const stderr = "";
     const code = 1;
 
-    expect(parseOuptut({ code, stdout, stderr })).toEqual([
+    expect(parseOutput({ code, stdout, stderr })).toEqual([
       {
         file: "src/components/CustomListsPref.vue",
         message:

@@ -1,9 +1,8 @@
 import type { OutputParser, Problem, ToolDefinition } from "../types";
-import { isBinInstalled, execAndParse } from "../utils";
-import { resolve } from "node:path";
+import { execAndParse } from "../utils";
 
-export const eslint: ToolDefinition = ({ binDir, root }) => {
-  const bin = resolve(root, binDir, "eslint");
+export const eslint: ToolDefinition = ({ root }) => {
+  const bin = "eslint";
   const checkArgs = [
     ".",
     "--ext",
@@ -17,13 +16,13 @@ export const eslint: ToolDefinition = ({ binDir, root }) => {
 
   return {
     name: "ESLint",
-    isInstalled: () => isBinInstalled(bin),
-    check: () => execAndParse(bin, checkArgs, root, parseOuptut),
-    fix: () => execAndParse(bin, fixArgs, root, parseOuptut),
+    packageName: "eslint",
+    check: () => execAndParse(bin, checkArgs, root, parseOutput),
+    fix: () => execAndParse(bin, fixArgs, root, parseOutput),
   };
 };
 
-export const parseOuptut: OutputParser = ({ stdout, stderr }) => {
+export const parseOutput: OutputParser = ({ stdout, stderr }) => {
   return `${stdout}\n${stderr}`
     .split(/\r?\n/)
     .reduce<Problem[]>((acc, line) => {

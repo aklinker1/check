@@ -1,21 +1,20 @@
 import type { OutputParser, Problem, ToolDefinition } from "../types";
-import { execAndParse, isBinInstalled } from "../utils";
-import { resolve } from "node:path";
+import { execAndParse } from "../utils";
 
-export const prettier: ToolDefinition = ({ binDir, root }) => {
-  const bin = resolve(root, binDir, "prettier");
+export const prettier: ToolDefinition = ({ root }) => {
+  const bin = "prettier";
   const checkArgs = [".", "--list-different"];
   const fixArgs = [".", "-w"];
 
   return {
     name: "Prettier",
-    isInstalled: () => isBinInstalled(bin),
-    check: () => execAndParse(bin, checkArgs, root, parseOuptut),
-    fix: () => execAndParse(bin, fixArgs, root, parseOuptut),
+    packageName: "prettier",
+    check: () => execAndParse(bin, checkArgs, root, parseOutput),
+    fix: () => execAndParse(bin, fixArgs, root, parseOutput),
   };
 };
 
-export const parseOuptut: OutputParser = ({ stdout, stderr }) => {
+export const parseOutput: OutputParser = ({ stdout, stderr }) => {
   if (stderr.trim()) {
     return stderr.split(/\r?\n/).reduce<Problem[]>((acc, line) => {
       const groups =
