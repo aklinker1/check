@@ -4,6 +4,7 @@ import { execAndParse } from "../utils";
 export const markdownlint: ToolDefinition = ({ root }) => {
   const bin = "markdownlint";
   const checkArgs = [
+    ".",
     "--json",
     "--ignore='**/dist/**'",
     "--ignore='**/node_modules/**'",
