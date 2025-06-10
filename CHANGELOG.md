@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.1.0
+
+[compare changes](https://github.com/aklinker1/check/compare/v2.0.0...v2.1.0)
+
+### 🚀 Enhancements
+
+- Add `markdownlint-cli` support ([#9](https://github.com/aklinker1/check/pull/9))
+
 ## v2.0.0
 
 [compare changes](https://github.com/aklinker1/check/compare/v1.4.5...v2.0.0)
