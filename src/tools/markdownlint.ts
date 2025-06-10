@@ -1,4 +1,4 @@
-import type { OutputParser, Problem, ToolDefinition } from "../types";
+import type { OutputParser, ToolDefinition } from "../types";
 import { execAndParse } from "../utils";
 
 export const markdownlint: ToolDefinition = ({ root }) => {
