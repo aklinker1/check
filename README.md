@@ -13,7 +13,7 @@ pnpm check --fix
 To enable checks for any of the following modules, just install them:
 
 ```sh
-pnpm i -D typescript oxlint prettier publint eslint
+pnpm i -D typescript oxlint prettier publint eslint markdownlint-cli
 ```
 
 ## Contributing
@@ -30,10 +30,14 @@ bun run build
 # Run checks
 bun check --help
 bun check
+
+# Debug commands used
+DEBUG=1 bun check
 ```
 
 ### Adding Tools
 
-I've added everything I use, so if you want to add support for another tool, feel free.
-
-Just copy `src/tools/prettier.ts` and `src/tools/prettier.test.ts`, update the implementations (yes, tests are required), and add your new tool to `src/tools/index.ts`'s `ALL_TOOLS` export.
+1. Copy and rename `src/tools/prettier.ts` and `src/tools/prettier.test.ts` accordingly
+2. Implement and update tests for your new tool
+3. Add your tool to the `ALL_TOOLS` array in `src/tools/index.ts`
+4. Add the tool's NPM package to the first section of this README
