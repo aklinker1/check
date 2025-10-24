@@ -2,6 +2,23 @@
   "name": "@aklinker1/check",
   "version": "2.1.0",
   "packageManager": "bun@1.3.0",
+  "type": "module",
+  "scripts": {
+    "build": "bunx --bun unbuild",
+    "check": "bun src/cli.ts",
+    "prepack": "bun run build",
+    "prepublish": "bun run build"
+  },
+  "dependencies": {
+    "ci-info": "*"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "oxlint": "^1.22.0",
+    "publint": "^0.3.14",
+    "tsdown": "^0.15.9",
+    "typescript": "^5.9.3"
+  },
   "repository": {
     "url": "https://github.com/aklinker1/check"
   },
@@ -20,14 +37,13 @@
     "prettier",
     "typescript"
   ],
-  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.js"
     }
   },
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "bin",
@@ -35,36 +51,5 @@
   ],
   "bin": {
     "check": "bin/check.mjs"
-  },
-  "scripts": {
-    "build": "bunx --bun unbuild",
-    "check": "bun src/cli.ts",
-    "prepack": "bun run build",
-    "prepublish": "bun run build"
-  },
-  "dependencies": {
-    "ci-info": "*"
-  },
-  "devDependencies": {
-    "@types/bun": "latest",
-    "oxlint": "^1.22.0",
-    "publint": "^0.3.14",
-    "typescript": "^5.0.0",
-    "unbuild": "latest"
-  },
-  "unbuild": {
-    "entries": [
-      {
-        "builder": "mkdist",
-        "input": "./src/",
-        "outDir": "./dist"
-      }
-    ],
-    "declaration": true
-  },
-  "changelog": {
-    "excludeAuthors": [
-      "aaronklinker1@gmail.com"
-    ]
   }
 }

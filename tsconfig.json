@@ -4,8 +4,10 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleDetection": "force",
-    "jsx": "react-jsx",
-    "allowJs": true,
+
+    /** Emitting */
+    "declaration": true,
+    "isolatedDeclarations": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",

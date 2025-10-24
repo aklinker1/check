@@ -58,6 +58,6 @@ export function humanMs(ms: number): string {
   return `${minutes > 0 ? `${minutes}m ` : ""}${seconds}s`;
 }
 
-export function debug(message: string) {
+export function debug(message: string): void {
   if (isDebug()) console.debug(dim("⚙ " + message));
 }

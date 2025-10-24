@@ -17,7 +17,7 @@ import { readFile } from "node:fs/promises";
 
 export type * from "./types";
 
-export async function check(options: CheckOptions = {}) {
+export async function check(options: CheckOptions = {}): Promise<never> {
   const { debug, fix = !isCI, root = process.cwd() } = options;
   const packageJson = JSON.parse(
     await readFile(join(root, "package.json"), "utf8"),
