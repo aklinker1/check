@@ -1,5 +1,32 @@
 # Changelog
 
+## v2.1.1
+
+[compare changes](https://github.com/aklinker1/check/compare/v2.1.0...v2.1.1)
+
+### 🩹 Fixes
+
+- Correctly check CLI flags ([5eb70dc](https://github.com/aklinker1/check/commit/5eb70dc))
+
+### 🏡 Chore
+
+- Refactor and support provence ([3ccfa33](https://github.com/aklinker1/check/commit/3ccfa33))
+- Upgrade to bun 1.3 ([35df310](https://github.com/aklinker1/check/commit/35df310))
+- Remove `@antfu/utils` dependency ([12145b5](https://github.com/aklinker1/check/commit/12145b5))
+- Cleanup dependencies ([6c3ae58](https://github.com/aklinker1/check/commit/6c3ae58))
+- Drop `citty` to reduce dep footprint ([47b9416](https://github.com/aklinker1/check/commit/47b9416))
+- Use `tsdown` for bundling over `unbuild` ([05256ba](https://github.com/aklinker1/check/commit/05256ba))
+- Update build script to use tsdown ([27098fd](https://github.com/aklinker1/check/commit/27098fd))
+
+### 🤖 CI
+
+- User version of Bun specified in `package.json` ([faa4879](https://github.com/aklinker1/check/commit/faa4879))
+- Remove JSR from publish workflow ([fb4bec2](https://github.com/aklinker1/check/commit/fb4bec2))
+
+### ❤️ Contributors
+
+- Aaron ([@aklinker1](https://github.com/aklinker1))
+
 ## v2.1.0
 
 [compare changes](https://github.com/aklinker1/check/compare/v2.0.0...v2.1.0)

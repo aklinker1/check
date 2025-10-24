@@ -1,6 +1,6 @@
 {
   "name": "@aklinker1/check",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "packageManager": "bun@1.3.0",
   "type": "module",
   "scripts": {
