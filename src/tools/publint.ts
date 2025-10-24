@@ -7,13 +7,12 @@ import type {
 import { execAndParse } from "../utils";
 
 export const publint: ToolDefinition = ({ root }) => {
-  const bin = "publint";
-  const args: string[] = [];
+  const cmd = "publint";
 
   return {
     name: "Publint",
     packageName: "publint",
-    check: () => execAndParse(bin, args, root, parseOutput),
+    check: () => execAndParse(cmd, root, parseOutput),
   };
 };
 
