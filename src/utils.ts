@@ -3,11 +3,10 @@ import type { OutputParser, Problem } from "./types";
 
 function exec(
   cmd: string,
-  args: string[],
   opts?: { cwd?: string },
 ): Promise<{ stderr: string; stdout: string; exitCode: number | null }> {
   return new Promise((resolve, reject) => {
-    const child = spawn(cmd, args, { ...opts, shell: true });
+    const child = spawn(cmd, { ...opts, shell: true });
     let stderr = "";
     let stdout = "";
     child.stdout.on("data", (data) => {
@@ -26,14 +25,13 @@ function exec(
 }
 
 export async function execAndParse(
-  bin: string,
-  args: string[],
+  cmd: string,
   cwd: string,
   parser: OutputParser,
 ): Promise<Problem[]> {
-  const res = await exec(bin, args, { cwd });
+  const res = await exec(cmd, { cwd });
   if (res.exitCode == null) throw Error("Exit code was null");
-  if (isDebug()) console.debug({ bin, args, cwd, ...res });
+  if (isDebug()) console.debug({ cmd, cwd, ...res });
   return parser({
     code: res.exitCode,
     stderr: res.stderr,

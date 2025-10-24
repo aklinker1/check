@@ -7,25 +7,22 @@ export const typescript: ToolDefinition = async ({
 }): Promise<Tool> => {
   const tsc = {
     name: "TypeScript",
-    bin: "tsc",
+    cmd: "tsc --noEmit --pretty false",
     packageName: "typescript",
-    args: ["--noEmit", "--pretty", "false"],
   };
   const vueTsc = {
     name: "TypeScript (Vue)",
-    bin: "vue-tsc",
+    cmd: "vue-tsc --noEmit --pretty false",
     packageName: "vue-tsc",
-    args: ["--noEmit", "--pretty", "false"],
   };
 
   const isVueTsc = packageJson.devDependencies?.["vue-tsc"] !== undefined;
   debug("TypeScript: Is vue-tsc installed? " + isVueTsc);
-  const cmd = isVueTsc ? vueTsc : tsc;
+  const mod = isVueTsc ? vueTsc : tsc;
   return {
-    name: cmd.name,
-    packageName: cmd.packageName,
-    // Execute the other TSC binary if necessary
-    check: async () => execAndParse(cmd.bin, cmd.args, root, parseOutput),
+    name: mod.name,
+    packageName: mod.packageName,
+    check: async () => execAndParse(mod.cmd, root, parseOutput),
   };
 };
 

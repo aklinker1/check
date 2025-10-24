@@ -2,22 +2,15 @@ import type { OutputParser, ToolDefinition } from "../types";
 import { execAndParse } from "../utils";
 
 export const markdownlint: ToolDefinition = ({ root }) => {
-  const bin = "markdownlint";
-  const checkArgs = [
-    ".",
-    "--json",
-    "--ignore='**/dist/**'",
-    "--ignore='**/node_modules/**'",
-    "--ignore='**/.output/**'",
-    "--ignore='**/coverage/**'",
-  ];
-  const fixArgs = [...checkArgs, "--fix"];
+  const checkCmd =
+    "markdownlint . --json --ignore='**/dist/**' --ignore='**/node_modules/**' --ignore='**/.output/**' --ignore='**/coverage/**'";
+  const fixCmd = `${checkCmd} --fix`;
 
   return {
     name: "Markdownlint",
     packageName: "markdownlint-cli",
-    check: () => execAndParse(bin, checkArgs, root, parseOutput),
-    fix: () => execAndParse(bin, fixArgs, root, parseOutput),
+    check: () => execAndParse(checkCmd, root, parseOutput),
+    fix: () => execAndParse(fixCmd, root, parseOutput),
   };
 };
 

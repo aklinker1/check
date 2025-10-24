@@ -2,23 +2,14 @@ import type { OutputParser, Problem, ToolDefinition } from "../types";
 import { execAndParse } from "../utils";
 
 export const eslint: ToolDefinition = ({ root }) => {
-  const bin = "eslint";
-  const checkArgs = [
-    ".",
-    "--ext",
-    ".js,.ts,.jsx,.tsx,.mjs,.mts,.cjs,.cts,.vue",
-    "--format",
-    "compact",
-    "--max-warnings",
-    "0",
-  ];
-  const fixArgs = [...checkArgs, "--fix"];
+  const checkCmd = `eslint . --ext .js,.ts,.jsx,.tsx,.mjs,.mts,.cjs,.cts,.vue --format compact --max-warnings 0`;
+  const fixCmd = `${checkCmd} --fix`;
 
   return {
     name: "ESLint",
     packageName: "eslint",
-    check: () => execAndParse(bin, checkArgs, root, parseOutput),
-    fix: () => execAndParse(bin, fixArgs, root, parseOutput),
+    check: () => execAndParse(checkCmd, root, parseOutput),
+    fix: () => execAndParse(fixCmd, root, parseOutput),
   };
 };
 

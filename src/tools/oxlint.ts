@@ -2,23 +2,15 @@ import type { OutputParser, Problem, ToolDefinition } from "../types";
 import { execAndParse } from "../utils";
 
 export const oxlint: ToolDefinition = ({ root }) => {
-  const bin = "oxlint";
-  const checkArgs = [
-    "--format=unix",
-    "--deny-warnings",
-    "--ignore-path=.oxlintignore",
-    "--ignore-pattern='**/dist/**'",
-    "--ignore-pattern='**/node_modules/**'",
-    "--ignore-pattern='**/.output/**'",
-    "--ignore-pattern='**/coverage/**'",
-  ];
-  const fixArgs = [...checkArgs, "--fix"];
+  const checkCmd =
+    "oxlint . --format=unix --deny-warnings --ignore-path=.oxlintignore --ignore-pattern='**/dist/**' --ignore-pattern='**/node_modules/**' --ignore-pattern='**/.output/**' --ignore-pattern='**/coverage/**'";
+  const fixCmd = `${checkCmd} --fix`;
 
   return {
     name: "Oxlint",
     packageName: "oxlint",
-    check: () => execAndParse(bin, checkArgs, root, parseOutput),
-    fix: () => execAndParse(bin, fixArgs, root, parseOutput),
+    check: () => execAndParse(checkCmd, root, parseOutput),
+    fix: () => execAndParse(fixCmd, root, parseOutput),
   };
 };
 

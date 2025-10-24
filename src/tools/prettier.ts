@@ -2,15 +2,14 @@ import type { OutputParser, Problem, ToolDefinition } from "../types";
 import { execAndParse } from "../utils";
 
 export const prettier: ToolDefinition = ({ root }) => {
-  const bin = "prettier";
-  const checkArgs = [".", "--list-different"];
-  const fixArgs = [".", "-w"];
+  const checkCmd = "prettier . --list-different";
+  const fixCmd = "prettier . -w";
 
   return {
     name: "Prettier",
     packageName: "prettier",
-    check: () => execAndParse(bin, checkArgs, root, parseOutput),
-    fix: () => execAndParse(bin, fixArgs, root, parseOutput),
+    check: () => execAndParse(checkCmd, root, parseOutput),
+    fix: () => execAndParse(fixCmd, root, parseOutput),
   };
 };
 
