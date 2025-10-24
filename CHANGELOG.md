@@ -1,5 +1,17 @@
 # Changelog
 
+## v2.1.2
+
+[compare changes](https://github.com/aklinker1/check/compare/v2.1.1...v2.1.2)
+
+### 🩹 Fixes
+
+- Don't use `args` when spawning child processes, resolves DEP0190 ([#10](https://github.com/aklinker1/check/pull/10))
+
+### ❤️ Contributors
+
+- Aaron ([@aklinker1](https://github.com/aklinker1))
+
 ## v2.1.1
 
 [compare changes](https://github.com/aklinker1/check/compare/v2.1.0...v2.1.1)
