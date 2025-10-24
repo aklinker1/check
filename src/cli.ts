@@ -1,36 +1,37 @@
-import { defineCommand, runMain } from "citty";
+import { isCI } from "ci-info";
 import { check } from ".";
+import { version } from "../package.json" with { type: "json" };
+import { ALL_TOOLS } from "./tools";
 
-const main = defineCommand({
-  meta: {
-    name: "check",
-    description: "@aklinker1/check",
-  },
-  args: {
-    root: {
-      type: "positional",
-      description: "Root directory to run commands from",
-      required: false,
-    },
-    fix: {
-      type: "boolean",
-      alias: "f",
-      description: "Fix problems if possible instead of just reporting them",
-    },
-    debug: {
-      type: "boolean",
-      alias: "d",
-      description: "Enable debug logs",
-    },
-    binDir: {
-      type: "string",
-      alias: "b",
-      description: "Directory where binaries are located",
-    },
-  },
-  async run(ctx) {
-    await check(ctx.args);
-  },
+const help = `\x1b[34m\x1b[1mcheck\x1b[0m runs all your project checks at once, standardizing and combining the output. \x1b[2m(${version})\x1b[0m
+
+\x1b[1mSupported Tools:\x1b[0m
+  ${ALL_TOOLS.map((tool) => `\x1b[32m${tool.name}\x1b[0m`)
+    .sort()
+    .join(", ")}
+
+\x1b[1mUsage:\x1b[0m
+  \x1b[1mcheck\x1b[0m \x1b[1m\x1b[36m[flags]\x1b[0m [root]
+
+\x1b[1mArguments:\x1b[0m
+  root       Directory to run commands from (default: .)
+
+\x1b[1mFlags\x1b[0m:
+  \x1b[36m-f\x1b[0m, \x1b[36m--fix\x1b[0m      Fix problems when possible (default: false in CI, true everywhere else)
+  \x1b[36m-d\x1b[0m, \x1b[36m--debug\x1b[0m    Enable debug logs
+  \x1b[36m-h\x1b[0m, \x1b[36m--help\x1b[0m     Show this help message and exit`;
+
+const args = process.argv.slice(2);
+const hasArg = (arg: string) => args.includes(arg);
+
+const showHelp = hasArg("-h") || hasArg("--help");
+if (showHelp) {
+  console.log(help);
+  process.exit(0);
+}
+
+await check({
+  fix: hasArg("-f") || hasArg("--fix") || !isCI,
+  debug: hasArg("-d") || hasArg("--debug"),
+  root: args.find((arg) => !arg.startsWith("-")) || ".",
 });
-
-runMain(main);

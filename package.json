@@ -43,7 +43,6 @@
     "prepublish": "bun run build"
   },
   "dependencies": {
-    "citty": "^0.1.6",
     "ci-info": "*"
   },
   "devDependencies": {

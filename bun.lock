@@ -5,7 +5,6 @@
       "name": "@aklinker1/check",
       "dependencies": {
         "ci-info": "*",
-        "citty": "^0.1.6",
       },
       "devDependencies": {
         "@types/bun": "latest",
