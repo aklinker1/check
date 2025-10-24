@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "citty": "^0.1.6",
-    "ci-info": "^4.0.0"
+    "ci-info": "*"
   },
   "devDependencies": {
     "@types/bun": "latest",
