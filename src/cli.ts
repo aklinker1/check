@@ -22,16 +22,17 @@ const help = `\x1b[34m\x1b[1mcheck\x1b[0m runs all your project checks at once, 
   \x1b[36m-h\x1b[0m, \x1b[36m--help\x1b[0m     Show this help message and exit`;
 
 const args = process.argv.slice(2);
-const hasArg = (arg: string) => args.includes(arg);
+const boolArg = (arg: string): boolean | undefined =>
+  args.includes(arg) || undefined;
 
-const showHelp = hasArg("-h") || hasArg("--help");
+const showHelp = boolArg("-h") || boolArg("--help");
 if (showHelp) {
   console.log(help);
   process.exit(0);
 }
 
 await check({
-  fix: hasArg("-f") || hasArg("--fix") || !isCI,
-  debug: hasArg("-d") || hasArg("--debug"),
-  root: args.find((arg) => !arg.startsWith("-")) || ".",
+  fix: boolArg("-f") ?? boolArg("--fix") ?? !isCI,
+  debug: boolArg("-d") ?? boolArg("--debug") ?? false,
+  root: args.find((arg) => !arg.startsWith("-")) ?? ".",
 });
