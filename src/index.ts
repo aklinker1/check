@@ -1,6 +1,5 @@
 import { ALL_TOOLS } from "./tools";
 import type { CheckOptions, Tool, Problem, ToolDefinition } from "./types";
-import { p } from "@antfu/utils";
 import {
   bold,
   cyan,
@@ -116,11 +115,14 @@ export async function check(options: CheckOptions = {}) {
 async function findInstalledTools(
   opts: Parameters<ToolDefinition>[0],
 ): Promise<Tool[]> {
-  const status = await p(ALL_TOOLS).map(async (def) => {
-    const tool = await def(opts);
-    const isInstalled = !!opts.packageJson.devDependencies?.[tool.packageName];
-    return { tool, isInstalled };
-  }).promise;
+  const status = await Promise.all(
+    ALL_TOOLS.map(async (def) => {
+      const tool = await def(opts);
+      const isInstalled =
+        !!opts.packageJson.devDependencies?.[tool.packageName];
+      return { tool, isInstalled };
+    }),
+  );
 
   if (isDebug()) {
     const getTools = (isInstalled: boolean) =>

@@ -43,7 +43,6 @@
     "prepublish": "bun run build"
   },
   "dependencies": {
-    "@antfu/utils": "^0.7.7",
     "citty": "^0.1.6",
     "ci-info": "^4.0.0"
   },
