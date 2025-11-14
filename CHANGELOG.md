@@ -1,5 +1,21 @@
 # Changelog
 
+## v2.2.0
+
+[compare changes](https://github.com/aklinker1/check/compare/v2.1.2...v2.2.0)
+
+### 🚀 Enhancements
+
+- Support `tsgo` via `@typescript/native-preview` ([d1c8f61](https://github.com/aklinker1/check/commit/d1c8f61))
+
+### 🏡 Chore
+
+- Upgrade to Bun 1.3.2 ([160cffb](https://github.com/aklinker1/check/commit/160cffb))
+
+### ❤️ Contributors
+
+- Aaron ([@aklinker1](https://github.com/aklinker1))
+
 ## v2.1.2
 
 [compare changes](https://github.com/aklinker1/check/compare/v2.1.1...v2.1.2)
