@@ -15,10 +15,18 @@ export const typescript: ToolDefinition = async ({
     cmd: "vue-tsc --noEmit --pretty false",
     packageName: "vue-tsc",
   };
+  const tsgo = {
+    name: "TypeScript (Go)",
+    cmd: "tsgo --noEmit --pretty false",
+    packageName: "@typescript/native-preview",
+  };
 
-  const isVueTsc = packageJson.devDependencies?.["vue-tsc"] !== undefined;
+  const isVueTsc =
+    packageJson.devDependencies?.[vueTsc.packageName] !== undefined;
+  const isTsgo = packageJson.devDependencies?.[tsgo.packageName] !== undefined;
   debug("TypeScript: Is vue-tsc installed? " + isVueTsc);
-  const mod = isVueTsc ? vueTsc : tsc;
+  debug("TypeScript: Is tsgo installed? " + isTsgo);
+  const mod = isVueTsc ? vueTsc : isTsgo ? tsgo : tsc;
   return {
     name: mod.name,
     packageName: mod.packageName,
