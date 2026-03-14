@@ -20,35 +20,20 @@ const LINT_REGEX =
   /^(?<file>.+?):(?<line>[0-9]+):(?<column>[0-9]+):\s?(?<message>.*?)\s?\[(?<kind>Warning|Error)\/?(?<rule>.*?)\]\s?$/;
 
 export const parseOutput: OutputParser = ({ stdout }) => {
-  if (stdout.trim()) {
-    return stdout.split(NEWLINE_REGEX).reduce<Problem[]>((acc, line) => {
-      const groups = LINT_REGEX.exec(line)?.groups;
-      if (groups) {
-        acc.push({
-          file: groups.file,
-          kind: groups.kind === "Error" ? "error" : "warning",
-          message: groups.message,
-          rule: groups.rule || undefined,
-          location: {
-            line: parseInt(groups.line, 10),
-            column: parseInt(groups.column, 10),
-          },
-        });
-      }
-      return acc;
-    }, []);
-  }
-
-  return stdout
-    .trim()
-    .split(NEWLINE_REGEX)
-    .map((line) => line.trim())
-    .filter((line) => !!line && !line.includes(" "))
-    .map(
-      (line): Problem => ({
-        file: line.trim(),
-        kind: "warning",
-        message: "Not formatted.",
-      }),
-    );
+  return stdout.split(NEWLINE_REGEX).reduce<Problem[]>((acc, line) => {
+    const groups = LINT_REGEX.exec(line)?.groups;
+    if (groups) {
+      acc.push({
+        file: groups.file,
+        kind: groups.kind === "Error" ? "error" : "warning",
+        message: groups.message,
+        rule: groups.rule || undefined,
+        location: {
+          line: parseInt(groups.line, 10),
+          column: parseInt(groups.column, 10),
+        },
+      });
+    }
+    return acc;
+  }, []);
 };
