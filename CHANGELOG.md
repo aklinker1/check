@@ -1,5 +1,29 @@
 # Changelog
 
+## v2.3.1
+
+[compare changes](https://github.com/aklinker1/check/compare/v2.3.0...v2.3.1)
+
+### 🔥 Performance
+
+- Compile regex once ([77f9a18](https://github.com/aklinker1/check/commit/77f9a18))
+- Optimize `process.cwd()` calls ([83e2d8c](https://github.com/aklinker1/check/commit/83e2d8c))
+- Only check debug env once ([5209489](https://github.com/aklinker1/check/commit/5209489))
+
+### 🩹 Fixes
+
+- Add back jenkins detection ([08ff31d](https://github.com/aklinker1/check/commit/08ff31d))
+
+### 🏡 Chore
+
+- Remove prepublish hook ([e7d3e72](https://github.com/aklinker1/check/commit/e7d3e72))
+- Remove dead code from oxlint ([519ad12](https://github.com/aklinker1/check/commit/519ad12))
+- Remove ci-info ([7070c66](https://github.com/aklinker1/check/commit/7070c66))
+
+### ❤️ Contributors
+
+- Aaron ([@aklinker1](https://github.com/aklinker1))
+
 ## v2.3.0
 
 [compare changes](https://github.com/aklinker1/check/compare/v2.2.0...v2.3.0)
