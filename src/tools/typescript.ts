@@ -1,10 +1,7 @@
 import type { Tool, OutputParser, Problem, ToolDefinition } from "../types";
 import { debug, execAndParse } from "../utils";
 
-export const typescript: ToolDefinition = async ({
-  root,
-  packageJson,
-}): Promise<Tool> => {
+export const typescript: ToolDefinition = async ({ root, packageJson }): Promise<Tool> => {
   const tsc = {
     name: "TypeScript",
     cmd: "tsc --noEmit --pretty false",
@@ -21,8 +18,7 @@ export const typescript: ToolDefinition = async ({
     packageName: "@typescript/native-preview",
   };
 
-  const isVueTsc =
-    packageJson.devDependencies?.[vueTsc.packageName] !== undefined;
+  const isVueTsc = packageJson.devDependencies?.[vueTsc.packageName] !== undefined;
   const isTsgo = packageJson.devDependencies?.[tsgo.packageName] !== undefined;
   debug("TypeScript: Is vue-tsc installed? " + isVueTsc);
   debug("TypeScript: Is tsgo installed? " + isTsgo);

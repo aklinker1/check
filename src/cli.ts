@@ -1,4 +1,5 @@
 import { isCI } from "ci-info";
+
 import { check } from ".";
 import { version } from "../package.json" with { type: "json" };
 import { ALL_TOOLS } from "./tools";
@@ -22,8 +23,7 @@ const help = `\x1b[34m\x1b[1mcheck\x1b[0m runs all your project checks at once, 
   \x1b[36m-h\x1b[0m, \x1b[36m--help\x1b[0m     Show this help message and exit`;
 
 const args = process.argv.slice(2);
-const boolArg = (arg: string): boolean | undefined =>
-  args.includes(arg) || undefined;
+const boolArg = (arg: string): boolean | undefined => args.includes(arg) || undefined;
 
 const showHelp = boolArg("-h") || boolArg("--help");
 if (showHelp) {

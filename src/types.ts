@@ -15,10 +15,7 @@ export interface CheckOptions {
   debug?: boolean;
 }
 
-export type ToolDefinition = (opts: {
-  root: string;
-  packageJson: any;
-}) => Promise<Tool> | Tool;
+export type ToolDefinition = (opts: { root: string; packageJson: any }) => Promise<Tool> | Tool;
 
 export interface Tool {
   /**
@@ -54,8 +51,4 @@ export interface CodeLocation {
 
 export type ProblemKind = "warning" | "error";
 
-export type OutputParser = (data: {
-  code: number;
-  stdout: string;
-  stderr: string;
-}) => Problem[];
+export type OutputParser = (data: { code: number; stdout: string; stderr: string }) => Problem[];

@@ -1,35 +1,24 @@
+import { readFile } from "node:fs/promises";
+import { relative, resolve, sep, join } from "node:path";
+
+import { isCI } from "ci-info";
+
+import { createTaskList } from "./tasklist";
 import { ALL_TOOLS } from "./tools";
 import type { CheckOptions, Tool, Problem, ToolDefinition } from "./types";
-import {
-  bold,
-  cyan,
-  debug as debugLog,
-  dim,
-  humanMs,
-  isDebug,
-  red,
-  yellow,
-} from "./utils";
-import { createTaskList } from "./tasklist";
-import { relative, resolve, sep, join } from "node:path";
-import { isCI } from "ci-info";
-import { readFile } from "node:fs/promises";
+import { bold, cyan, debug as debugLog, dim, humanMs, isDebug, red, yellow } from "./utils";
 
 export type * from "./types";
 
 export async function check(options: CheckOptions = {}): Promise<never> {
   const { debug, fix = !isCI, root = process.cwd() } = options;
-  const packageJson = JSON.parse(
-    await readFile(join(root, "package.json"), "utf8"),
-  );
+  const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
   if (debug) {
     process.env.DEBUG = "true";
   }
   console.log();
   debugLog("Options:" + JSON.stringify(options));
-  debugLog(
-    "Resolved options:" + JSON.stringify({ debug, fix, root, packageJson }),
-  );
+  debugLog("Resolved options:" + JSON.stringify({ debug, fix, root, packageJson }));
 
   const tools = await findInstalledTools({ root, packageJson });
   if (tools.length === 0) {
@@ -41,28 +30,25 @@ export async function check(options: CheckOptions = {}): Promise<never> {
     console.log();
     process.exit(1);
   }
-  const results = await createTaskList(
-    tools,
-    async ({ input: tool, fail, succeed, warn }) => {
-      const startTime = performance.now();
-      // Run checks
-      const fn = fix ? (tool.fix ?? tool.check) : tool.check;
-      const problems = await fn();
-      // Ensure problems are absolute paths relative to the root dir
-      problems.forEach((problem) => {
-        problem.file = resolve(root ?? process.cwd(), problem.file);
-      });
-      const duration = humanMs(performance.now() - startTime);
+  const results = await createTaskList(tools, async ({ input: tool, fail, succeed, warn }) => {
+    const startTime = performance.now();
+    // Run checks
+    const fn = fix ? (tool.fix ?? tool.check) : tool.check;
+    const problems = await fn();
+    // Ensure problems are absolute paths relative to the root dir
+    problems.forEach((problem) => {
+      problem.file = resolve(root ?? process.cwd(), problem.file);
+    });
+    const duration = humanMs(performance.now() - startTime);
 
-      const title = `${tool.name} ${dim(`(${duration})`)}`;
-      const errorCount = problems.filter((p) => p.kind === "error").length;
-      if (errorCount > 0) fail(title);
-      else if (problems.length > 0) warn(title);
-      else succeed(title);
+    const title = `${tool.name} ${dim(`(${duration})`)}`;
+    const errorCount = problems.filter((p) => p.kind === "error").length;
+    if (errorCount > 0) fail(title);
+    else if (problems.length > 0) warn(title);
+    else succeed(title);
 
-      return problems;
-    },
-  );
+    return problems;
+  });
 
   const problems = results.flat();
   console.log();
@@ -97,10 +83,7 @@ export async function check(options: CheckOptions = {}): Promise<never> {
       return acc;
     }, {}),
   );
-  const maxLength = files.reduce(
-    (prev, [file]) => Math.max(prev, file.length),
-    0,
-  );
+  const maxLength = files.reduce((prev, [file]) => Math.max(prev, file.length), 0);
   console.log();
   console.log("Across " + plural(files.length, "File:", "Files:"));
   files.forEach(([file, count]) => {
@@ -112,14 +95,11 @@ export async function check(options: CheckOptions = {}): Promise<never> {
   process.exit(problems.length);
 }
 
-async function findInstalledTools(
-  opts: Parameters<ToolDefinition>[0],
-): Promise<Tool[]> {
+async function findInstalledTools(opts: Parameters<ToolDefinition>[0]): Promise<Tool[]> {
   const status = await Promise.all(
     ALL_TOOLS.map(async (def) => {
       const tool = await def(opts);
-      const isInstalled =
-        !!opts.packageJson.devDependencies?.[tool.packageName];
+      const isInstalled = !!opts.packageJson.devDependencies?.[tool.packageName];
       return { tool, isInstalled };
     }),
   );
@@ -135,9 +115,7 @@ async function findInstalledTools(
     const skipped = getTools(false);
     debugLog(`Skipping: ${skipped || "(none)"} `);
   }
-  return status
-    .filter(({ isInstalled }) => isInstalled)
-    .map((item) => item.tool);
+  return status.filter(({ isInstalled }) => isInstalled).map((item) => item.tool);
 }
 
 function plural(count: number, singular: string, plural: string): string {
