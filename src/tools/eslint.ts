@@ -13,12 +13,14 @@ export const eslint: ToolDefinition = ({ root }) => {
   };
 };
 
+const NEWLINE_REGEX = /\r?\n/;
+
+const LINT_REGEX =
+  /^(?<file>.*?): line (?<line>[0-9]+), col (?<column>[0-9]+), (?<kind>\S+) - (?<message>.*?) \((?<rule>\S*?)\)$/;
+
 export const parseOutput: OutputParser = ({ stdout, stderr }) => {
-  return `${stdout}\n${stderr}`.split(/\r?\n/).reduce<Problem[]>((acc, line) => {
-    const groups =
-      /^(?<file>.*?): line (?<line>[0-9]+), col (?<column>[0-9]+), (?<kind>\S+) - (?<message>.*?) \((?<rule>\S*?)\)$/.exec(
-        line,
-      )?.groups;
+  return `${stdout}\n${stderr}`.split(NEWLINE_REGEX).reduce<Problem[]>((acc, line) => {
+    const groups = LINT_REGEX.exec(line)?.groups;
     if (groups) {
       acc.push({
         file: groups.file,

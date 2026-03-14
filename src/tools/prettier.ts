@@ -13,13 +13,15 @@ export const prettier: ToolDefinition = ({ root }) => {
   };
 };
 
+const NEWLINE_REGEX = /\r?\n/;
+
+const ERROR_REGEX =
+  /^\[(?<kind>.+?)\]\s?(?<file>.+?):\s?(?<message>.*?)\s?\((?<line>[0-9]+):(?<column>[0-9]+)\)$/;
+
 export const parseOutput: OutputParser = ({ stdout, stderr }) => {
   if (stderr.trim()) {
-    return stderr.split(/\r?\n/).reduce<Problem[]>((acc, line) => {
-      const groups =
-        /^\[(?<kind>.+?)\]\s?(?<file>.+?):\s?(?<message>.*?)\s?\((?<line>[0-9]+):(?<column>[0-9]+)\)$/.exec(
-          line,
-        )?.groups;
+    return stderr.split(NEWLINE_REGEX).reduce<Problem[]>((acc, line) => {
+      const groups = ERROR_REGEX.exec(line)?.groups;
       if (groups) {
         acc.push({
           file: groups.file,
@@ -37,7 +39,7 @@ export const parseOutput: OutputParser = ({ stdout, stderr }) => {
 
   return stdout
     .trim()
-    .split(/\r?\n/)
+    .split(NEWLINE_REGEX)
     .map((line) => line.trim())
     .filter((line) => !!line && !line.includes(" "))
     .map(

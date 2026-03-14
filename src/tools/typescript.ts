@@ -30,12 +30,13 @@ export const typescript: ToolDefinition = async ({ root, packageJson }): Promise
   };
 };
 
+const NEWLINE_REGEX = /\r?\n/;
+const ERROR_REGEX =
+  /^(?<file>\S+?)\((?<line>[0-9]+),(?<column>[0-9]+)\): \w+? (?<rule>TS[0-9]+): (?<message>.*)$/;
+
 export const parseOutput: OutputParser = ({ stdout }) => {
-  return stdout.split(/\r?\n/).reduce<Problem[]>((acc, line) => {
-    const groups =
-      /^(?<file>\S+?)\((?<line>[0-9]+),(?<column>[0-9]+)\): \w+? (?<rule>TS[0-9]+): (?<message>.*)$/.exec(
-        line,
-      )?.groups;
+  return stdout.split(NEWLINE_REGEX).reduce<Problem[]>((acc, line) => {
+    const groups = ERROR_REGEX.exec(line)?.groups;
     if (groups) {
       acc.push({
         file: groups.file,
