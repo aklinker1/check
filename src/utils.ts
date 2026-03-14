@@ -2,6 +2,9 @@ import { spawn } from "node:child_process";
 
 import type { OutputParser, Problem } from "./types";
 
+export const isCi: boolean = process.env.CI === "true";
+export const isDebug: boolean = process.env.DEBUG === "true" || process.env.DEBUG === "1";
+
 function exec(
   cmd: string,
   opts?: { cwd?: string },
@@ -39,8 +42,6 @@ export async function execAndParse(
     stdout: res.stdout,
   });
 }
-
-export const isDebug: boolean = process.env.DEBUG === "true" || process.env.DEBUG === "1";
 
 export const bold = (str: string) => `\x1b[1m${str}\x1b[0m`;
 export const dim = (str: string) => `\x1b[2m${str}\x1b[0m`;

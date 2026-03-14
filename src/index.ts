@@ -1,19 +1,17 @@
 import { readFile } from "node:fs/promises";
 import { relative, resolve, sep, join } from "node:path";
 
-import { isCI } from "ci-info";
-
 import { createTaskList } from "./tasklist";
 import { ALL_TOOLS } from "./tools";
 import type { CheckOptions, Tool, Problem, ToolDefinition } from "./types";
-import { bold, cyan, debug as debugLog, dim, humanMs, isDebug, red, yellow } from "./utils";
+import { bold, cyan, debug as debugLog, dim, humanMs, isDebug, red, isCi, yellow } from "./utils";
 
 export type * from "./types";
 
 const cwd = process.cwd();
 
 export async function check(options: CheckOptions = {}): Promise<never> {
-  const { debug, fix = !isCI, root = cwd } = options;
+  const { debug, fix = !isCi, root = cwd } = options;
   const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
   if (debug) {
     process.env.DEBUG = "true";

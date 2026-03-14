@@ -1,8 +1,7 @@
-import { isCI } from "ci-info";
-
 import { check } from ".";
 import { version } from "../package.json" with { type: "json" };
 import { ALL_TOOLS } from "./tools";
+import { isCi } from "./utils";
 
 const help = `\x1b[34m\x1b[1mcheck\x1b[0m runs all your project checks at once, standardizing and combining the output. \x1b[2m(${version})\x1b[0m
 
@@ -32,7 +31,7 @@ if (showHelp) {
 }
 
 await check({
-  fix: boolArg("-f") ?? boolArg("--fix") ?? !isCI,
+  fix: boolArg("-f") ?? boolArg("--fix") ?? !isCi,
   debug: boolArg("-d") ?? boolArg("--debug") ?? false,
   root: args.find((arg) => !arg.startsWith("-")) ?? ".",
 });

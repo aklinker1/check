@@ -41,9 +41,6 @@
     "check": "bun src/cli.ts",
     "prepack": "bun run build"
   },
-  "dependencies": {
-    "ci-info": "*"
-  },
   "devDependencies": {
     "@types/bun": "latest",
     "@typescript/native-preview": "^7.0.0-dev.20251114.1",
