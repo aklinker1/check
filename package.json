@@ -39,8 +39,7 @@
   "scripts": {
     "build": "tsdown src/index.ts src/cli.ts",
     "check": "bun src/cli.ts",
-    "prepack": "bun run build",
-    "prepublish": "bun run build"
+    "prepack": "bun run build"
   },
   "dependencies": {
     "ci-info": "*"
