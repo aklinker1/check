@@ -10,8 +10,10 @@ import { bold, cyan, debug as debugLog, dim, humanMs, isDebug, red, yellow } fro
 
 export type * from "./types";
 
+const cwd = process.cwd();
+
 export async function check(options: CheckOptions = {}): Promise<never> {
-  const { debug, fix = !isCI, root = process.cwd() } = options;
+  const { debug, fix = !isCI, root = cwd } = options;
   const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
   if (debug) {
     process.env.DEBUG = "true";
@@ -37,7 +39,7 @@ export async function check(options: CheckOptions = {}): Promise<never> {
     const problems = await fn();
     // Ensure problems are absolute paths relative to the root dir
     problems.forEach((problem) => {
-      problem.file = resolve(root ?? process.cwd(), problem.file);
+      problem.file = resolve(root, problem.file);
     });
     const duration = humanMs(performance.now() - startTime);
 
@@ -77,7 +79,7 @@ export async function check(options: CheckOptions = {}): Promise<never> {
   // Print files
   const files = Object.entries(
     problems.reduce<Record<string, number>>((acc, problem) => {
-      const file = "." + sep + relative(process.cwd(), problem.file);
+      const file = "." + sep + relative(root, problem.file);
       acc[file] ??= 0;
       acc[file]++;
       return acc;
@@ -125,7 +127,7 @@ function plural(count: number, singular: string, plural: string): string {
 export function renderProblemGroup(problems: Problem[]): string {
   const renderedProblems = problems.map(renderProblem);
   const problem = problems[0];
-  const path = relative(process.cwd(), problem.file);
+  const path = relative(cwd, problem.file);
   const location = problem.location
     ? `${path}:${problem.location.line}:${problem.location.column}`
     : path;
