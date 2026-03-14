@@ -1,5 +1,21 @@
 # Changelog
 
+## v2.3.0
+
+[compare changes](https://github.com/aklinker1/check/compare/v2.2.0...v2.3.0)
+
+### 🚀 Enhancements
+
+- Add `oxfmt` support ([#11](https://github.com/aklinker1/check/pull/11))
+
+### 📖 Documentation
+
+- Indicate `@typescript/native-preview` support ([f4068f4](https://github.com/aklinker1/check/commit/f4068f4))
+
+### ❤️ Contributors
+
+- Aaron ([@aklinker1](https://github.com/aklinker1))
+
 ## v2.2.0
 
 [compare changes](https://github.com/aklinker1/check/compare/v2.1.2...v2.2.0)
