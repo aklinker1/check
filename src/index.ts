@@ -24,7 +24,7 @@ export async function check(options: CheckOptions = {}): Promise<never> {
 
   const tools = await findInstalledTools({ root, packageJson });
   if (tools.length === 0) {
-    if (isDebug()) {
+    if (isDebug) {
       console.log("No tools detected!");
     } else {
       console.log("No tools detected! Run with --debug for more info");
@@ -106,7 +106,7 @@ async function findInstalledTools(opts: Parameters<ToolDefinition>[0]): Promise<
     }),
   );
 
-  if (isDebug()) {
+  if (isDebug) {
     const getTools = (isInstalled: boolean) =>
       status
         .filter((item) => item.isInstalled === isInstalled)

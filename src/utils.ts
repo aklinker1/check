@@ -32,7 +32,7 @@ export async function execAndParse(
 ): Promise<Problem[]> {
   const res = await exec(cmd, { cwd });
   if (res.exitCode == null) throw Error("Exit code was null");
-  if (isDebug()) console.debug({ cmd, cwd, ...res });
+  if (isDebug) console.debug({ cmd, cwd, ...res });
   return parser({
     code: res.exitCode,
     stderr: res.stderr,
@@ -40,9 +40,7 @@ export async function execAndParse(
   });
 }
 
-export function isDebug(): boolean {
-  return process.env.DEBUG === "true" || process.env.DEBUG === "1";
-}
+export const isDebug: boolean = process.env.DEBUG === "true" || process.env.DEBUG === "1";
 
 export const bold = (str: string) => `\x1b[1m${str}\x1b[0m`;
 export const dim = (str: string) => `\x1b[2m${str}\x1b[0m`;
@@ -58,5 +56,5 @@ export function humanMs(ms: number): string {
 }
 
 export function debug(message: string): void {
-  if (isDebug()) console.debug(dim("⚙ " + message));
+  if (isDebug) console.debug(dim("⚙ " + message));
 }
