@@ -1,11 +1,11 @@
 import { describe, it, expect } from "bun:test";
 
-import { parseOutput } from "./prettier";
+import { parseOutput } from "./oxfmt";
 
-describe("Prettier", () => {
+describe("Oxfmt", () => {
   it("should properly parse output", async () => {
     const stdout = `target/.rustc_info.json
-  test.ts
+test.ts
   `;
     const stderr = "";
     const code = 1;
@@ -27,59 +27,53 @@ describe("Prettier", () => {
   it("return no problems when there isn't any output", async () => {
     const stdout = "";
     const stderr = "";
-    const code = 1;
+    const code = 0;
 
     expect(parseOutput({ code, stdout, stderr })).toEqual([]);
   });
 
   it("should return an error when a syntax error is reported", async () => {
-    const stderr = `[error] src/components/CommitDiff.ts: SyntaxError: Declaration or statement expected. (15:1)
-[error]   13 | });
-[error]   14 |
-[error] > 15 | }
-[error]      | ^
-[error]   16 |
-[error] src/components/CompareDiff.ts: Some other error message. (14:1)
-[error]   12 | });
-[error]   13 |
-[error] > 14 | }
-[error]      | ^
-[error]   15 |
+    const stderr = `
+  × Unterminated string
+    ╭─[src/internal/compile-route-handler.ts:11:8]
+ 10 │   ServerSideFetch,
+ 11 │ } from "../types
+    ·        ──────────
+ 12 │ import { smartDeserialize, smartSerialize } from "./serialization";
+ 13 │
+    ╰────
+Error occurred when checking code style in the above files.
 `;
-    const stdout = `.github/assets/privacy-policy.md 18ms
-  .github/workflows/submit.yml 20ms
-  .github/workflows/validate.yml 4ms
-  .prettierrc.yml 0ms`;
+    const stdout = `.github/assets/privacy-policy.md
+.oxfmtrc.jsonc`;
     const code = 1;
 
     expect(parseOutput({ code, stdout, stderr })).toEqual([
       {
-        file: "src/components/CommitDiff.ts",
-        message: "SyntaxError: Declaration or statement expected.",
+        file: "src/internal/compile-route-handler.ts",
+        message: "Unterminated string",
         location: {
-          line: 15,
-          column: 1,
+          line: 11,
+          column: 8,
         },
         kind: "error",
       },
       {
-        file: "src/components/CompareDiff.ts",
-        message: "Some other error message.",
-        location: {
-          line: 14,
-          column: 1,
-        },
-        kind: "error",
+        file: ".github/assets/privacy-policy.md",
+        kind: "warning",
+        message: "Not formatted.",
+      },
+      {
+        file: ".oxfmtrc.jsonc",
+        kind: "warning",
+        message: "Not formatted.",
       },
     ]);
   });
 
   it("should not report warnings for fix output", () => {
     const stderr = "";
-    const stdout = `.github/assets/privacy-policy.md 18ms
-.github/workflows/submit.yml 20ms
-.github/workflows/validate.yml 4ms
-.prettierrc.yml 0ms`;
+    const stdout = `Finished in 571ms on 90 files using 12 threads.`;
     const code = 0;
 
     expect(parseOutput({ code, stdout, stderr })).toEqual([]);

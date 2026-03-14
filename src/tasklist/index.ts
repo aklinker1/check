@@ -1,10 +1,8 @@
-import { cyan, dim, green, red, yellow } from "../utils";
 import readline from "node:readline";
 
-export async function createTaskList<
-  TInput extends { name: string },
-  TResult = void,
->(
+import { cyan, dim, green, red, yellow } from "../utils";
+
+export async function createTaskList<TInput extends { name: string }, TResult = void>(
   inputs: TInput[],
   run: (ctx: {
     input: TInput;

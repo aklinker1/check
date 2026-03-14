@@ -1,9 +1,4 @@
-import type {
-  OutputParser,
-  Problem,
-  ProblemKind,
-  ToolDefinition,
-} from "../types";
+import type { OutputParser, Problem, ProblemKind, ToolDefinition } from "../types";
 import { execAndParse } from "../utils";
 
 export const publint: ToolDefinition = ({ root }) => {
