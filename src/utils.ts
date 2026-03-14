@@ -2,8 +2,14 @@ import { spawn } from "node:child_process";
 
 import type { OutputParser, Problem } from "./types";
 
-export const isCi: boolean = process.env.CI === "true";
-export const isDebug: boolean = process.env.DEBUG === "true" || process.env.DEBUG === "1";
+const env = process.env;
+
+export const isCi: boolean = Boolean(
+  env.CI || // GitHub, GitLab, CircleCI, Vercel, etc.
+  env.JENKINS_URL, // Jenkins
+);
+
+export const isDebug: boolean = env.DEBUG === "true" || env.DEBUG === "1";
 
 function exec(
   cmd: string,
