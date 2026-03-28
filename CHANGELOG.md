@@ -1,5 +1,21 @@
 # Changelog
 
+## v2.4.0
+
+[compare changes](https://github.com/aklinker1/check/compare/v2.3.1...v2.4.0)
+
+### 🚀 Enhancements
+
+- Add cspell ([cf00fda](https://github.com/aklinker1/check/commit/cf00fda))
+
+### 🏡 Chore
+
+- Upgrade bun setup action ([88265b5](https://github.com/aklinker1/check/commit/88265b5))
+
+### ❤️ Contributors
+
+- Aaron ([@aklinker1](https://github.com/aklinker1))
+
 ## v2.3.1
 
 [compare changes](https://github.com/aklinker1/check/compare/v2.3.0...v2.3.1)
