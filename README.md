@@ -1,9 +1,16 @@
-# Check
+<div align="center">
+
+# `@aklinker1/check`
+
+[![NPM Version](https://img.shields.io/npm/v/%40aklinker1%2Fcheck?logo=npm&labelColor=red&color=white)](https://www.npmjs.com/package/@aklinker1/check)
+[![Install Size](https://pkg-size.dev/badge/install/22026)](https://pkg-size.dev/@aklinker1%2Fcheck)
 
 An opinionated CLI tool to run all your checks all at once. The command will only exit with code 0
 when no problems exist.
 
 https://github.com/aklinker1/check/assets/10101283/c8089e5c-e25f-4f59-8897-d2a6f97a3139
+
+</div>
 
 ```sh
 pnpm i @aklinker1/check
