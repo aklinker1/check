@@ -6,6 +6,7 @@ import { oxfmt } from "./oxfmt";
 import { oxlint } from "./oxlint";
 import { prettier } from "./prettier";
 import { publint } from "./publint";
+import { rumdl } from "./rumdl";
 import { typescript } from "./typescript";
 
 export const ALL_TOOLS: ToolDefinition[] = [
@@ -17,4 +18,5 @@ export const ALL_TOOLS: ToolDefinition[] = [
   prettier,
   publint,
   typescript,
+  rumdl,
 ];
