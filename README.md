@@ -18,7 +18,7 @@ pnpm check
 pnpm check --fix
 ```
 
-To enable checks for any of the following modules, just install them:
+To enable checks for any of the following modules, just install them as dev dependencies:
 
 ```sh
 pnpm add -D cspell
@@ -32,9 +32,11 @@ pnpm add -D typescript
 pnpm add -D @typescript/native-preview # Deprecated: check supports TypeScript 7
 ```
 
+`check` will run any of the above tools if they are listed in the `package.json`'s `devDependencies` section.
+
 ## Contributing
 
-This project is built using [`bun`](https://bun.sh). Demo project uses PNPM.
+This project is built using [`bun`](https://bun.sh).
 
 ```sh
 # Setup
