@@ -1,29 +1,14 @@
+---
+name: run-checks
+description: Run code quality checks in parallel with unified output.
+---
+
 # Using `@aklinker1/check`
 
 `@aklinker1/check` is an opinionated CLI tool that runs multiple code quality checks (linters,
 formatters, type checkers, etc.) all at once with unified output.
 
-## Installation
-
-Install as a dev dependency in your project:
-
-```bash
-pnpm add -D @aklinker1/check
-```
-
 ## Basic Usage
-
-Add a script to your `package.json`:
-
-```json
-{
-  "scripts": {
-    "check": "check"
-  }
-}
-```
-
-Then run:
 
 ```bash
 # Check for issues
@@ -32,6 +17,16 @@ pnpm check
 # Check and auto-fix issues where possible
 pnpm check --fix
 ```
+
+> Some package managers, like `bun`, include a `check` command. You can override it by adding a `check` script to the project's `package.json`.
+>
+> ```json
+> {
+>   "scripts": {
+>     "check": "check"
+>   }
+> }
+> ```
 
 ## Supported Tools
 
@@ -105,7 +100,7 @@ npm run check --fix
 `check` automatically detects CI environments and defaults to check-only mode (no auto-fix):
 
 ```yaml
-# GitHub Actions example
+# GitHub Actions
 - name: Run checks
   run: pnpm check
 ```
