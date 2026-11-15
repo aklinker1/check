@@ -25,7 +25,8 @@
   },
   "files": [
     "bin",
-    "dist"
+    "dist",
+    "skills"
   ],
   "type": "module",
   "module": "./dist/index.js",

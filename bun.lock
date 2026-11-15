@@ -4,6 +4,9 @@
   "workspaces": {
     "": {
       "name": "@aklinker1/check",
+      "dependencies": {
+        "@aklinker1/check": ".",
+      },
       "devDependencies": {
         "@types/bun": "latest",
         "@typescript/native-preview": "^7.0.0-dev.20251114.1",
@@ -16,6 +19,8 @@
     },
   },
   "packages": {
+    "@aklinker1/check": ["@aklinker1/check@root:", {}],
+
     "@babel/generator": ["@babel/generator@7.28.5", "", { "dependencies": { "@babel/parser": "^7.28.5", "@babel/types": "^7.28.5", "@jridgewell/gen-mapping": "^0.3.12", "@jridgewell/trace-mapping": "^0.3.28", "jsesc": "^3.0.2" } }, "sha512-3EwLFhZ38J4VyIP6WNtt2kUdW9dokXA9Cr4IVIFHuCpZ3H8/YFOl5JjZHisrn1fATPBmKKqXzDFvh9fUwHz6CQ=="],
 
     "@babel/helper-string-parser": ["@babel/helper-string-parser@7.27.1", "", {}, "sha512-qMlSxKbpRlAridDExk92nSobyDdpPijUq2DW6oDnUqd0iOGxmQjyqhMIihI9+zv4LPyZdRje2cavWPbCbWm3eA=="],
