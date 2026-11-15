@@ -18,7 +18,8 @@
     "email": "aaronklinker1+npm@gmail.com"
   },
   "repository": {
-    "url": "https://github.com/aklinker1/check"
+    "type": "git",
+    "url": "git+https://github.com/aklinker1/check.git"
   },
   "bin": {
     "check": "bin/check.mjs"
