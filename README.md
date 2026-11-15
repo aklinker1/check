@@ -21,7 +21,15 @@ pnpm check --fix
 To enable checks for any of the following modules, just install them:
 
 ```sh
-pnpm i -D typescript oxlint prettier publint eslint markdownlint-cli @typescript/native-preview cspell rumdl
+pnpm add -D cspell
+pnpm add -D eslint
+pnpm add -D markdownlint-cli
+pnpm add -D oxlint
+pnpm add -D prettier
+pnpm add -D publint
+pnpm add -D rumdl
+pnpm add -D typescript
+pnpm add -D @typescript/native-preview # Deprecated: check supports TypeScript 7
 ```
 
 ## Contributing
