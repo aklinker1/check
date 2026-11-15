@@ -1,6 +1,14 @@
 name: Publish
 on:
   workflow_dispatch:
+    inputs:
+      bump:
+        description: Blank (auto), a version (1.4.1), or major/minor/patch
+        type: string
+      dryRun:
+        description: Dry Run?
+        type: boolean
+        default: false
 
 jobs:
   validate:
@@ -20,13 +28,18 @@ jobs:
           fetch-depth: 0
       - uses: ./.github/actions/setup
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444
-      - run: sudo npm i -g npm@latest
-      - run: bun run build
-      # - run: npm publish --dry-run # NPM fails with " npm error You cannot publish over the previously published versions: X.Y.Z."
-      - run: |
+      - name: Setup Git
+        run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-      - run: bunx changelogen@latest --release --push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: npm publish
+      - name: Update NPM for Provenance
+        run: sudo npm i -g npm@latest
+      - run: bun run build
+      - name: Bump and Release
+        uses: aklinker1/zero-changelog/actions/release@e5203d33d660b3e9c2cded7462fb33d88dbde393 # v0.2.5
+        with:
+          bump: ${{ inputs.bump }}
+          publishCommands: bun publish
+          dryRunPublishCommands: bun publish --dryRun
+          dryRun: ${{ inputs.dryRun }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}

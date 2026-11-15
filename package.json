@@ -38,7 +38,7 @@
     }
   },
   "scripts": {
-    "build": "tsdown src/index.ts src/cli.ts",
+    "build": "tsdown src/index.ts src/cli.ts && rm dist/cli.d.ts",
     "check": "bun src/cli.ts",
     "prepack": "bun run build"
   },
