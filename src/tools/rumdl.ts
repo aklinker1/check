@@ -2,8 +2,7 @@ import type { OutputParser, ToolDefinition } from "../types";
 import { execAndParse } from "../utils";
 
 export const rumdl: ToolDefinition = ({ root }) => {
-  const checkCmd =
-    "rumdl check . --output-format json --exclude 'dist,node_modules,.output,coverage'";
+  const checkCmd = "rumdl check . --output-format json";
   const fixCmd = `${checkCmd} --fix`;
 
   return {

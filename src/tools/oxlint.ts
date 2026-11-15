@@ -2,8 +2,7 @@ import type { OutputParser, Problem, ToolDefinition } from "../types";
 import { execAndParse } from "../utils";
 
 export const oxlint: ToolDefinition = ({ root }) => {
-  const checkCmd =
-    "oxlint . --format=unix --deny-warnings --ignore-path=.oxlintignore --ignore-pattern='**/dist/**' --ignore-pattern='**/node_modules/**' --ignore-pattern='**/.output/**' --ignore-pattern='**/coverage/**'";
+  const checkCmd = "oxlint . --format=unix --deny-warnings";
   const fixCmd = `${checkCmd} --fix`;
 
   return {

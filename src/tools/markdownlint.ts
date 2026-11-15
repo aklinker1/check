@@ -2,8 +2,7 @@ import type { OutputParser, ToolDefinition } from "../types";
 import { execAndParse } from "../utils";
 
 export const markdownlint: ToolDefinition = ({ root }) => {
-  const checkCmd =
-    "markdownlint . --json --ignore='**/dist/**' --ignore='**/node_modules/**' --ignore='**/.output/**' --ignore='**/coverage/**'";
+  const checkCmd = "markdownlint . --json";
   const fixCmd = `${checkCmd} --fix`;
 
   return {
