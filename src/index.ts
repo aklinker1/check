@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { relative, resolve, sep, join } from "node:path";
 
+import { findScriptTools } from "./scripts";
 import { createTaskList } from "./tasklist";
 import { ALL_TOOLS } from "./tools";
 import type { CheckOptions, Tool, Problem, ToolDefinition } from "./types";
@@ -20,7 +21,10 @@ export async function check(options: CheckOptions = {}): Promise<never> {
   debugLog("Options:" + JSON.stringify(options));
   debugLog("Resolved options:" + JSON.stringify({ debug, fix, root, packageJson }));
 
-  const tools = await findInstalledTools({ root, packageJson });
+  const tools = [
+    ...(await findInstalledTools({ root, packageJson })),
+    ...findScriptTools(root, packageJson),
+  ];
   if (tools.length === 0) {
     if (isDebug) {
       console.log("No tools detected!");
