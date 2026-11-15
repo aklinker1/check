@@ -38,8 +38,7 @@ export const parseOutput: OutputParser = ({ stdout }) => {
       file: result.filePath,
       kind: msg.severity === 1 ? "warning" : "error",
       message: msg.message,
-      location:
-        msg.line != null ? { line: msg.line, column: msg.column ?? 1 } : undefined,
+      location: msg.line != null ? { line: msg.line, column: msg.column ?? 1 } : undefined,
       rule: msg.ruleId ?? undefined,
     })),
   );

@@ -76,18 +76,32 @@ export async function check(options: CheckOptions = {}): Promise<never> {
 
   // Print files
   const files = Object.entries(
-    problems.reduce<Record<string, number>>((acc, problem) => {
+    problems.reduce<Record<string, { count: number; position: string }>>((acc, problem) => {
       const file = "." + sep + relative(root, problem.file);
-      acc[file] ??= 0;
-      acc[file]++;
+      // Problems are sorted, so the first one seen is the earliest in the file
+      acc[file] ??= {
+        count: 0,
+        position: problem.location ? `${problem.location.line}:${problem.location.column}` : "",
+      };
+      acc[file].count++;
       return acc;
     }, {}),
   );
-  const maxLength = files.reduce((prev, [file]) => Math.max(prev, file.length), 0);
+  const withLocation = (file: string, position: string) =>
+    position ? `${file}:${position}` : file;
+  const maxLength = files.reduce(
+    (prev, [file, { position }]) => Math.max(prev, withLocation(file, position).length),
+    0,
+  );
   console.log();
   console.log("Across " + plural(files.length, "File:", "Files:"));
-  files.forEach(([file, count]) => {
-    console.log(`${cyan(file.padEnd(maxLength, " "))} ${count}`);
+  const maxCountLength = files.reduce(
+    (prev, [, { count }]) => Math.max(prev, String(count).length),
+    0,
+  );
+  files.forEach(([file, { count, position }]) => {
+    const path = withLocation(file, position).padEnd(maxLength, " ");
+    console.log(`${cyan(path)} ${String(count).padStart(maxCountLength, " ")}`);
   });
 
   // Exit based on number of commands that exited with code >= 1

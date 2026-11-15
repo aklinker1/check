@@ -32,7 +32,8 @@ pnpm add -D typescript
 pnpm add -D @typescript/native-preview # Deprecated: check supports TypeScript 7
 ```
 
-`check` will run any of the above tools if they are listed in the `package.json`'s `devDependencies` section.
+`check` will run any of the above tools if they are listed in the `package.json`'s `devDependencies`
+section.
 
 ## Contributing
 
