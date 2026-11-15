@@ -4,11 +4,27 @@ import { parseOutput } from "./eslint";
 
 describe("ESLint", () => {
   it("should properly parse output", async () => {
-    const stdout = `/path/to/check/demo/test.ts: line 1, col 7, Warning - 'test' is assigned a value but never used. (@typescript-eslint/no-unused-vars)
-/path/to/check/demo/test.ts: line 5, col 7, Error - 'variable' is assigned a value but never used. (@typescript-eslint/no-unused-vars)
-
-4 problems
-`;
+    const stdout = JSON.stringify([
+      {
+        filePath: "/path/to/check/demo/test.ts",
+        messages: [
+          {
+            ruleId: "@typescript-eslint/no-unused-vars",
+            severity: 1,
+            message: "'test' is assigned a value but never used.",
+            line: 1,
+            column: 7,
+          },
+          {
+            ruleId: "@typescript-eslint/no-unused-vars",
+            severity: 2,
+            message: "'variable' is assigned a value but never used.",
+            line: 5,
+            column: 7,
+          },
+        ],
+      },
+    ]);
     const stderr = "";
     const code = 1;
 
