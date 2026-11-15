@@ -28,7 +28,7 @@ TypeScript → tsc --noEmit --pretty false
 
 ## Which tools are listed
 
-- Supported tools installed as `devDependencies` in the project's `package.json`.
+Supported tools installed as `devDependencies` in the project's `package.json`.
 
 If nothing is detected, it prints `No tools detected!` and exits with code `1`.
 
@@ -44,8 +44,7 @@ The listed command matches what a normal `check` run would execute:
 check tools --fix
 ```
 
-Tools without a fix mode (CSpell, Publint, TypeScript) show the same command in
-both modes.
+Tools without a fix mode (CSpell, Publint, TypeScript) show the same command in both modes.
 
 ## Arguments and flags
 

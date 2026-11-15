@@ -1,7 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { relative, resolve, sep, join } from "node:path";
 
-import { findScriptTools } from "./scripts";
 import { createTaskList } from "./tasklist";
 import { ALL_TOOLS } from "./tools";
 import type { CheckOptions, Tool, Problem, ToolDefinition } from "./types";
@@ -23,7 +22,7 @@ export async function check(options: CheckOptions = {}): Promise<never> {
 
   const tools = await findTools(root, packageJson);
   if (tools.length === 0) {
-    if (isDebug) {
+    if (isDebug()) {
       console.log("No tools detected!");
     } else {
       console.log("No tools detected! Run with --debug for more info");
@@ -119,10 +118,7 @@ export async function listTools(root: string = cwd): Promise<Tool[]> {
 }
 
 async function findTools(root: string, packageJson: any): Promise<Tool[]> {
-  return [
-    ...(await findInstalledTools({ root, packageJson })),
-    ...findScriptTools(root, packageJson),
-  ];
+  return await findInstalledTools({ root, packageJson });
 }
 
 async function findInstalledTools(opts: Parameters<ToolDefinition>[0]): Promise<Tool[]> {
@@ -134,7 +130,7 @@ async function findInstalledTools(opts: Parameters<ToolDefinition>[0]): Promise<
     }),
   );
 
-  if (isDebug) {
+  if (isDebug()) {
     const getTools = (isInstalled: boolean) =>
       status
         .filter((item) => item.isInstalled === isInstalled)

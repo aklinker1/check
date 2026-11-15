@@ -9,7 +9,9 @@ export const isCi: boolean = Boolean(
   env.JENKINS_URL, // Jenkins
 );
 
-export const isDebug: boolean = env.DEBUG === "check";
+export function isDebug(): boolean {
+  return process.env.DEBUG === "check";
+}
 
 function exec(
   cmd: string,
@@ -41,7 +43,7 @@ export async function execAndParse(
 ): Promise<Problem[]> {
   const res = await exec(cmd, { cwd });
   if (res.exitCode == null) throw Error("Exit code was null");
-  if (isDebug) console.debug({ cmd, cwd, ...res });
+  if (isDebug()) console.debug({ cmd, cwd, ...res });
   let problems: Problem[];
   try {
     problems = parser({ code: res.exitCode, stderr: res.stderr, stdout: res.stdout });
@@ -83,5 +85,5 @@ export function humanMs(ms: number): string {
 }
 
 export function debug(message: string): void {
-  if (isDebug) console.debug(dim("⚙ " + message));
+  if (isDebug()) console.debug(dim("⚙ " + message));
 }
