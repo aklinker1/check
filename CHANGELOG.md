@@ -1,5 +1,44 @@
 # Changelog
 
+## v3.0.0
+
+[compare changes](https://github.com/aklinker1/check/compare/v2.5.0...v3.0.0)
+
+### 🚀 Features
+
+- `check tools` to list tools and their commands ([`46ecc95`](https://github.com/aklinker1/check/commit/46ecc95572ac25a2d1111750a28bee52724a8c98))
+
+### 🩹 Fixes
+
+- Don't set default values for ignored paths ([`2548ca8`](https://github.com/aklinker1/check/commit/2548ca809abbf11b435fe77e518e48e65adc9479))
+- Drop support for `@typescript/native-preview` ([`ca2bc63`](https://github.com/aklinker1/check/commit/ca2bc6313563e119a0e2592f53f3c4587690435b))
+- Respect `--debug` flag ([`f7430e9`](https://github.com/aklinker1/check/commit/f7430e9bd87b089d1b0cdb826f16605e0839e01a))
+
+### 📖 Documentation
+
+- Update README ([`53e2af6`](https://github.com/aklinker1/check/commit/53e2af60df08ca253021ba24bf618d32b44f853d))
+- Simplify README ([`86057ee`](https://github.com/aklinker1/check/commit/86057eeefb66ca1f2802fe40a7d4aecaf09e842d))
+
+### 🏡 Chore
+
+- Fix `package.json` repository field ([`30b3cbf`](https://github.com/aklinker1/check/commit/30b3cbfef763d45fdfacb98c0739ec31fc670bd8))
+- **debug**: Use `DEBUG=check` to enable debug messages from env vars ([`3bbd0ee`](https://github.com/aklinker1/check/commit/3bbd0eebf2ed1f73280f6aaec4b1eaeeb618f531))
+
+### 🤖 CI
+
+- Remove extra build step from `publish` workflow ([`db64b49`](https://github.com/aklinker1/check/commit/db64b49e7618254a5144270b47ea4455c0dd9360))
+
+### ⚠️ Breaking Changes
+
+- [`2548ca8`](https://github.com/aklinker1/check/commit/2548ca809abbf11b435fe77e518e48e65adc9479): For `markdownlint-cli`, `oxlint`, and `rumdl`, don't apply any default ignore paths. Projects must set their own ignore paths in the config files.
+- [`ca2bc63`](https://github.com/aklinker1/check/commit/ca2bc6313563e119a0e2592f53f3c4587690435b): Upgrade to `typescript@^7` instead of using `@typescript/native-preview`
+- [`3bbd0ee`](https://github.com/aklinker1/check/commit/3bbd0eebf2ed1f73280f6aaec4b1eaeeb618f531): Use `DEBUG=check` instead of `DEBUG=1` to enable debug messages via env vars.
+
+### ❤️ Contributors
+
+- [@aklinker1](https://github.com/aklinker1)
+
+
 ## v2.5.0
 
 [compare changes](https://github.com/aklinker1/check/compare/v2.4.1...v2.5.0)
@@ -36,7 +75,6 @@
 
 - [@suveshmoza](https://github.com/suveshmoza)
 - [@aklinker1](https://github.com/aklinker1)
-
 
 ## v2.4.1
 
