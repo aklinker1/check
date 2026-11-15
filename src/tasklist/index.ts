@@ -24,9 +24,12 @@ export async function createTaskList<TInput extends { name: string }, TResult = 
       // output above the task list
       readline.moveCursor(process.stderr, 0, -1 * states.length);
     }
-    if (isTty || opts?.firstRender || opts?.lastRender) {
+    // Without a TTY (CI, or wrapped by tools like `bun run --parallel` that
+    // prefix each line), only print the final list once and never emit escape
+    // codes, otherwise `clearLine` erases the wrapper's prefix.
+    if (isTty || opts?.lastRender) {
       states.forEach(({ state, title }) => {
-        readline.clearLine(process.stderr, 0);
+        if (isTty) readline.clearLine(process.stderr, 0);
         const frames = SPINNER_FRAMES[state];
         process.stderr.write(`${frames[tick % frames.length]} ${title}\n`);
       });
