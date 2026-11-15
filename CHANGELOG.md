@@ -1,5 +1,21 @@
 # Changelog
 
+## v2.4.1
+
+[compare changes](https://github.com/aklinker1/check/compare/v2.4.0...v2.4.1)
+
+### 🩹 Fixes
+
+- Fix weird spacing in CI and aggregate package manager scripts ([6f33b22](https://github.com/aklinker1/check/commit/6f33b22))
+
+### 📖 Documentation
+
+- Use my standard package header ([3d98f9c](https://github.com/aklinker1/check/commit/3d98f9c))
+
+### ❤️ Contributors
+
+- Aaron ([@aklinker1](https://github.com/aklinker1))
+
 ## v2.4.0
 
 [compare changes](https://github.com/aklinker1/check/compare/v2.3.1...v2.4.0)
