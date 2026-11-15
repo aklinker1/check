@@ -1,5 +1,43 @@
 # Changelog
 
+## v2.5.0
+
+[compare changes](https://github.com/aklinker1/check/compare/v2.4.1...v2.5.0)
+
+### 🚀 Features
+
+- Add rumdl support ([#14](https://github.com/aklinker1/check/pull/14))
+- Include position of first problem in bottom file list ([`19c75ae`](https://github.com/aklinker1/check/commit/19c75ae729a48fda6c1ea45ccb11614d12abbaca))
+- Add skill for running checks ([`9361260`](https://github.com/aklinker1/check/commit/9361260edd98aa2b1ae35af75e48be5a895e89d1))
+
+### 🩹 Fixes
+
+- **eslint**: Use `json` formatter instead of `compact` ([`7df40bf`](https://github.com/aklinker1/check/commit/7df40bfafafe3209b565823aa3f532bddabf693d))
+- Report error when command fails to run but no problems are reported ([`140d536`](https://github.com/aklinker1/check/commit/140d5360801b1fb1d5baa274cbfc051db4cf96e5))
+
+### 📖 Documentation
+
+- Update README tool list ([`dc12bed`](https://github.com/aklinker1/check/commit/dc12bedc642ddf1abde1a19a8bbdb854b6a8cdb7))
+- Fix typos, improve clarity ([`57dc5cb`](https://github.com/aklinker1/check/commit/57dc5cbd30afd94d4157c1d155194d00fcfdefc0))
+
+### 🏡 Chore
+
+- Use `.tool-versions` file ([`048671b`](https://github.com/aklinker1/check/commit/048671baf5008356fda1d16f0ca1717a2232d5bb))
+- Fix formatting ([`0143cd9`](https://github.com/aklinker1/check/commit/0143cd95c19300121d5c73d66d012e38b85811f8))
+- Fix lockfile ([`b640237`](https://github.com/aklinker1/check/commit/b64023753cc1e856bcde2eaedcdcb59e27ede6dd))
+
+### 🤖 CI
+
+- Use zero-changelog for releases ([`eaca472`](https://github.com/aklinker1/check/commit/eaca472ebd1df52a3da1bb8e324cf8615253379d))
+- Fix dry-run flag ([`e630494`](https://github.com/aklinker1/check/commit/e630494e9727f8bfe2fae98b5b4183ced9b8231e))
+- Publish with npm instead of bun ([`2d14956`](https://github.com/aklinker1/check/commit/2d14956c77c956c9bb0314f7738f34d775bb421b))
+
+### ❤️ Contributors
+
+- [@suveshmoza](https://github.com/suveshmoza)
+- [@aklinker1](https://github.com/aklinker1)
+
+
 ## v2.4.1
 
 [compare changes](https://github.com/aklinker1/check/compare/v2.4.0...v2.4.1)
