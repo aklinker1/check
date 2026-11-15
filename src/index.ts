@@ -15,7 +15,7 @@ export async function check(options: CheckOptions = {}): Promise<never> {
   const { debug, fix = !isCi, root = cwd } = options;
   const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
   if (debug) {
-    process.env.DEBUG = "true";
+    process.env.DEBUG = "check";
   }
   console.log();
   debugLog("Options:" + JSON.stringify(options));

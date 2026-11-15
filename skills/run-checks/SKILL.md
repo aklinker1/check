@@ -86,7 +86,7 @@ pnpm check ./src
 ```bash
 bun check --debug
 # or
-DEBUG=1 bun check
+DEBUG=check bun check
 ```
 
 ### Fix mode

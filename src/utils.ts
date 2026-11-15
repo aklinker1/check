@@ -9,7 +9,7 @@ export const isCi: boolean = Boolean(
   env.JENKINS_URL, // Jenkins
 );
 
-export const isDebug: boolean = env.DEBUG === "true" || env.DEBUG === "1";
+export const isDebug: boolean = env.DEBUG === "check";
 
 function exec(
   cmd: string,

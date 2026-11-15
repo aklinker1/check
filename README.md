@@ -96,7 +96,7 @@ pnpm check ./packages/app
 
 # See why a tool isn't being run
 pnpm check --debug
-DEBUG=1 pnpm check
+DEBUG=check pnpm check
 ```
 
 ## CI

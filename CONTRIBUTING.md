@@ -14,7 +14,7 @@ bun check --help
 bun check
 
 # Debug commands used
-DEBUG=1 bun check
+DEBUG=check bun check
 ```
 
 ## Adding Tools
