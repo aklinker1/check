@@ -1,5 +1,19 @@
 # Changelog
 
+## v3.0.1
+
+[compare changes](https://github.com/aklinker1/check/compare/v3.0.0...v3.0.1)
+
+### 📖 Documentation
+
+- Fix typo ([`340363b`](https://github.com/aklinker1/check/commit/340363b3378d16ee5b5e2ddf19b2c5be9079d558))
+- Fix typo ([`b9927f1`](https://github.com/aklinker1/check/commit/b9927f17163ecb954f950268717462572ca39866))
+
+### ❤️ Contributors
+
+- [@aklinker1](https://github.com/aklinker1)
+
+
 ## v3.0.0
 
 [compare changes](https://github.com/aklinker1/check/compare/v2.5.0...v3.0.0)
@@ -37,7 +51,6 @@
 ### ❤️ Contributors
 
 - [@aklinker1](https://github.com/aklinker1)
-
 
 ## v2.5.0
 
