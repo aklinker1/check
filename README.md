@@ -47,7 +47,7 @@ problems found.
 - ⚡ Runs all tools in parallel
 - 🧩 Unified task list and problem output
 - 🤖 CI aware: fixes problems locally, check-only in CI
-- 🧠 Includes an agent skill
+- 🧠 Includes agent skills
 
 ## Supported Tools
 
