@@ -33,12 +33,10 @@ Add a script to your `package.json`:
 Then run it:
 
 ```sh
-# Run all checks, fixing problems when possible
 pnpm check
-
-# Explicitly fix problems
-pnpm check --fix
 ```
+
+Run `check --help` to see a help message for the available commands and flags.
 
 `check` only exits with code `0` when no problems exist. Otherwise, the exit code is the number of
 problems found.
@@ -48,8 +46,7 @@ problems found.
 - 🔍 Auto-detects tools from your `devDependencies`, no config required
 - ⚡ Runs all tools in parallel
 - 🧩 Unified task list and problem output
-- 🛠️ Auto-fixes problems when supported by the tool
-- 🤖 CI aware: fixes locally, check-only in CI
+- 🤖 CI aware: fixes problems locally, check-only in CI
 - 🧠 Includes an agent skill
 
 ## Supported Tools
@@ -57,46 +54,21 @@ problems found.
 To enable a tool, install it as a dev dependency. `check` runs any of the following tools listed in
 your `package.json`'s `devDependencies`:
 
-| Tool                                                              | Package            | Fixes |
-| ----------------------------------------------------------------- | ------------------ | ----- |
-| [CSpell](https://cspell.org)                                      | `cspell`           | ❌    |
-| [ESLint](https://eslint.org)                                      | `eslint`           | ✅    |
-| [Markdownlint](https://github.com/igorshubovych/markdownlint-cli) | `markdownlint-cli` | ✅    |
-| [Oxfmt](https://oxc.rs)                                           | `oxfmt`            | ✅    |
-| [Oxlint](https://oxc.rs)                                          | `oxlint`           | ✅    |
-| [Prettier](https://prettier.io)                                   | `prettier`         | ✅    |
-| [Publint](https://publint.dev)                                    | `publint`          | ❌    |
-| [rumdl](https://github.com/rvben/rumdl)                           | `rumdl`            | ✅    |
-| [TypeScript](https://www.typescriptlang.org)                      | `typescript`       | ❌    |
-| [TypeScript (Vue)](https://github.com/vuejs/language-tools)       | `vue-tsc`          | ❌    |
+| Tool                                                              | Package            |
+| ----------------------------------------------------------------- | ------------------ |
+| [CSpell](https://cspell.org)                                      | `cspell`           |
+| [ESLint](https://eslint.org)                                      | `eslint`           |
+| [Markdownlint](https://github.com/igorshubovych/markdownlint-cli) | `markdownlint-cli` |
+| [Oxfmt](https://oxc.rs)                                           | `oxfmt`            |
+| [Oxlint](https://oxc.rs)                                          | `oxlint`           |
+| [Prettier](https://prettier.io)                                   | `prettier`         |
+| [Publint](https://publint.dev)                                    | `publint`          |
+| [rumdl](https://github.com/rvben/rumdl)                           | `rumdl`            |
+| [TypeScript](https://www.typescriptlang.org)                      | `typescript`       |
+| [TypeScript (Vue)](https://github.com/vuejs/language-tools)       | `vue-tsc`          |
 
 ```sh
 pnpm add -D prettier oxlint typescript
-```
-
-## CLI
-
-```sh
-check [flags] [root]
-```
-
-| Argument | Description                                   |
-| -------- | --------------------------------------------- |
-| `root`   | Directory to run commands from (default: `.`) |
-
-| Flag          | Description                                                           |
-| ------------- | --------------------------------------------------------------------- |
-| `-f, --fix`   | Fix problems when possible (default: `false` in CI, `true` elsewhere) |
-| `-d, --debug` | Enable debug logs, including which tools are detected and run         |
-| `-h, --help`  | Show help and exit                                                    |
-
-```sh
-# Run from a different directory
-pnpm check ./packages/app
-
-# See why a tool isn't being run
-pnpm check --debug
-DEBUG=check pnpm check
 ```
 
 ## CI
