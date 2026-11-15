@@ -8,7 +8,9 @@ export const rumdl: ToolDefinition = ({ root }) => {
   return {
     name: "rumdl",
     packageName: "rumdl",
+    checkCommand: checkCmd,
     check: () => execAndParse(checkCmd, root, parseOutput),
+    fixCommand: fixCmd,
     fix: () => execAndParse(fixCmd, root, parseOutput),
   };
 };

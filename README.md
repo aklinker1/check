@@ -108,7 +108,10 @@ In CI, `check` defaults to check-only mode so nothing is modified:
 - name: Run checks
   run: pnpm check
 ```
+
 ## Agent Skill
 
-The package ships with a `run-checks` skill in `skills/run-checks` that teaches coding agents how to
-use `check`.
+The package ships with agent skills in `skills/` that teach coding agents how to use `check`:
+
+- `run-checks` (`skills/run-checks`): run checks and fix problems.
+- `list-tools` (`skills/list-tools`): list enabled tools and the commands that will be ran.

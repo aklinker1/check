@@ -7,6 +7,7 @@ export const publint: ToolDefinition = ({ root }) => {
   return {
     name: "Publint",
     packageName: "publint",
+    checkCommand: cmd,
     check: () => execAndParse(cmd, root, parseOutput),
   };
 };

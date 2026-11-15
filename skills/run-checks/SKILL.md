@@ -18,7 +18,8 @@ pnpm check
 pnpm check --fix
 ```
 
-> Some package managers, like `bun`, include a `check` command. You can override it by adding a `check` script to the project's `package.json`.
+> Some package managers, like `bun`, include a `check` command. You can override it by adding a
+> `check` script to the project's `package.json`.
 >
 > ```json
 > {

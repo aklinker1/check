@@ -8,7 +8,9 @@ export const oxlint: ToolDefinition = ({ root }) => {
   return {
     name: "Oxlint",
     packageName: "oxlint",
+    checkCommand: checkCmd,
     check: () => execAndParse(checkCmd, root, parseOutput),
+    fixCommand: fixCmd,
     fix: () => execAndParse(fixCmd, root, parseOutput),
   };
 };

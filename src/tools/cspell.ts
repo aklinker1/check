@@ -7,6 +7,7 @@ export const cspell: ToolDefinition = ({ root }) => {
   return {
     name: "CSpell",
     packageName: "cspell",
+    checkCommand: checkCmd,
     check: () => execAndParse(checkCmd, root, parseOutput),
   };
 };

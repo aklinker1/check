@@ -27,6 +27,14 @@ export interface Tool {
    */
   packageName: string;
   /**
+   * The shell command ran by `check`, shown by `check tools`.
+   */
+  checkCommand: string;
+  /**
+   * The shell command ran by `fix`, if the tool supports fixing problems.
+   */
+  fixCommand?: string;
+  /**
    * Run the tool, only checking for problems.
    */
   check: () => Promise<Problem[]>;

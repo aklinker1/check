@@ -19,6 +19,7 @@ export const typescript: ToolDefinition = async ({ root, packageJson }): Promise
   return {
     name: mod.name,
     packageName: mod.packageName,
+    checkCommand: mod.cmd,
     check: async () => execAndParse(mod.cmd, root, parseOutput),
   };
 };

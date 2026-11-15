@@ -8,7 +8,9 @@ export const eslint: ToolDefinition = ({ root }) => {
   return {
     name: "ESLint",
     packageName: "eslint",
+    checkCommand: checkCmd,
     check: () => execAndParse(checkCmd, root, parseOutput),
+    fixCommand: fixCmd,
     fix: () => execAndParse(fixCmd, root, parseOutput),
   };
 };

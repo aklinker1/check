@@ -8,7 +8,9 @@ export const prettier: ToolDefinition = ({ root }) => {
   return {
     name: "Prettier",
     packageName: "prettier",
+    checkCommand: checkCmd,
     check: () => execAndParse(checkCmd, root, parseOutput),
+    fixCommand: fixCmd,
     fix: () => execAndParse(fixCmd, root, parseOutput),
   };
 };

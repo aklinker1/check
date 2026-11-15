@@ -8,7 +8,9 @@ export const oxfmt: ToolDefinition = ({ root }) => {
   return {
     name: "Oxfmt",
     packageName: "oxfmt",
+    checkCommand: checkCmd,
     check: () => execAndParse(checkCmd, root, parseOutput),
+    fixCommand: fixCmd,
     fix: () => execAndParse(fixCmd, root, parseOutput),
   };
 };

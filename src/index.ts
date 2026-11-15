@@ -21,10 +21,7 @@ export async function check(options: CheckOptions = {}): Promise<never> {
   debugLog("Options:" + JSON.stringify(options));
   debugLog("Resolved options:" + JSON.stringify({ debug, fix, root, packageJson }));
 
-  const tools = [
-    ...(await findInstalledTools({ root, packageJson })),
-    ...findScriptTools(root, packageJson),
-  ];
+  const tools = await findTools(root, packageJson);
   if (tools.length === 0) {
     if (isDebug) {
       console.log("No tools detected!");
@@ -111,6 +108,21 @@ export async function check(options: CheckOptions = {}): Promise<never> {
   // Exit based on number of commands that exited with code >= 1
   console.log();
   process.exit(problems.length);
+}
+
+/**
+ * Read the package.json in `root` and return every enabled tool.
+ */
+export async function listTools(root: string = cwd): Promise<Tool[]> {
+  const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
+  return findTools(root, packageJson);
+}
+
+async function findTools(root: string, packageJson: any): Promise<Tool[]> {
+  return [
+    ...(await findInstalledTools({ root, packageJson })),
+    ...findScriptTools(root, packageJson),
+  ];
 }
 
 async function findInstalledTools(opts: Parameters<ToolDefinition>[0]): Promise<Tool[]> {

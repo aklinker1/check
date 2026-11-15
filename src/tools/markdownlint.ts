@@ -8,7 +8,9 @@ export const markdownlint: ToolDefinition = ({ root }) => {
   return {
     name: "Markdownlint",
     packageName: "markdownlint-cli",
+    checkCommand: checkCmd,
     check: () => execAndParse(checkCmd, root, parseOutput),
+    fixCommand: fixCmd,
     fix: () => execAndParse(fixCmd, root, parseOutput),
   };
 };
