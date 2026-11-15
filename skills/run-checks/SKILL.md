@@ -1,6 +1,7 @@
 # Using `@aklinker1/check`
 
-`@aklinker1/check` is an opinionated CLI tool that runs multiple code quality checks (linters, formatters, type checkers, etc.) all at once with unified output.
+`@aklinker1/check` is an opinionated CLI tool that runs multiple code quality checks (linters,
+formatters, type checkers, etc.) all at once with unified output.
 
 ## Installation
 
