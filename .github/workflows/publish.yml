@@ -39,7 +39,7 @@ jobs:
         uses: aklinker1/zero-changelog/actions/release@e5203d33d660b3e9c2cded7462fb33d88dbde393 # v0.2.5
         with:
           bump: ${{ inputs.bump }}
-          publishCommands: bun publish
-          dryRunPublishCommands: bun publish --dry-run
+          publishCommands: npm publish
+          dryRunPublishCommands: npm publish --dry-run
           dryRun: ${{ inputs.dryRun }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
