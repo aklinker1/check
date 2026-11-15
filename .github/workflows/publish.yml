@@ -40,6 +40,6 @@ jobs:
         with:
           bump: ${{ inputs.bump }}
           publishCommands: bun publish
-          dryRunPublishCommands: bun publish --dryRun
+          dryRunPublishCommands: bun publish --dry-run
           dryRun: ${{ inputs.dryRun }}
           githubToken: ${{ secrets.GITHUB_TOKEN }}
