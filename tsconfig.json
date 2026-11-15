@@ -4,6 +4,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleDetection": "force",
+    "types": ["bun"],
 
     /** Emitting */
     "declaration": true,

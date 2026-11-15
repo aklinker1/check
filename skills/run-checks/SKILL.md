@@ -45,7 +45,7 @@ pnpm check --fix
 - **Prettier** - Code formatter
 - **Publint** - Package.json validator
 - **rumdl** - Markdown linter (Rust-based)
-- **TypeScript** - Type checker (also supports `vue-tsc` and `@typescript/native-preview`)
+- **TypeScript** - Type checker (also supports `vue-tsc`)
 
 To enable any tool, just install it:
 

@@ -44,11 +44,10 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "@typescript/native-preview": "^7.0.0-dev.20251114.1",
     "oxfmt": "^0.40.0",
     "oxlint": "^1.22.0",
     "publint": "^0.3.14",
     "tsdown": "^0.15.9",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2"
   }
 }

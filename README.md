@@ -30,7 +30,6 @@ pnpm add -D publint
 pnpm add -D rumdl
 pnpm add -D typescript
 pnpm add -D vue-tsc
-pnpm add -D @typescript/native-preview # Deprecated: check supports TypeScript 7
 ```
 
 `check` will run any of the above tools if they are listed in the `package.json`'s `devDependencies`
