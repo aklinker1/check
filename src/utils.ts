@@ -42,11 +42,31 @@ export async function execAndParse(
   const res = await exec(cmd, { cwd });
   if (res.exitCode == null) throw Error("Exit code was null");
   if (isDebug) console.debug({ cmd, cwd, ...res });
-  return parser({
-    code: res.exitCode,
-    stderr: res.stderr,
-    stdout: res.stdout,
-  });
+  let problems: Problem[];
+  try {
+    problems = parser({ code: res.exitCode, stderr: res.stderr, stdout: res.stdout });
+  } catch (err) {
+    // If the command failed, the output likely wasn't in the expected format
+    if (res.exitCode === 0) throw err;
+    problems = [];
+  }
+
+  // The command failed, but nothing was parsed (config error, crash, etc). Show the raw output
+  // instead of silently passing.
+  if (res.exitCode !== 0 && problems.length === 0) {
+    const output = [res.stdout, res.stderr]
+      .map((s) => s.trim())
+      .filter(Boolean)
+      .join("\n");
+    return [
+      {
+        file: cwd,
+        kind: "error",
+        message: `Command failed with exit code ${res.exitCode}: ${cmd}${output ? "\n" + output : ""}`,
+      },
+    ];
+  }
+  return problems;
 }
 
 export const bold = (str: string) => `\x1b[1m${str}\x1b[0m`;
