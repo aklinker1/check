@@ -1,5 +1,18 @@
 # Changelog
 
+## v3.0.2
+
+[compare changes](https://github.com/aklinker1/check/compare/v3.0.1...v3.0.2)
+
+### 🩹 Fixes
+
+- Add description ([`d6f60d9`](https://github.com/aklinker1/check/commit/d6f60d92367ae8670ea03882ecd7e2ca9f00cc21))
+
+### ❤️ Contributors
+
+- [@aklinker1](https://github.com/aklinker1)
+
+
 ## v3.0.1
 
 [compare changes](https://github.com/aklinker1/check/compare/v3.0.0...v3.0.1)
@@ -12,7 +25,6 @@
 ### ❤️ Contributors
 
 - [@aklinker1](https://github.com/aklinker1)
-
 
 ## v3.0.0
 
