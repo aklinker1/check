@@ -81,7 +81,7 @@ In CI, `check` defaults to check-only mode so nothing is modified:
   run: pnpm check
 ```
 
-## Agent Skill
+## Agent Skills
 
 The package ships with agent skills in `skills/` that teach coding agents how to use `check`:
 
