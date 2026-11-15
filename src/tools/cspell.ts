@@ -2,7 +2,7 @@ import type { OutputParser, Problem, ToolDefinition } from "../types";
 import { execAndParse } from "../utils";
 
 export const cspell: ToolDefinition = ({ root }) => {
-  const checkCmd = "cspell --no-progress --no-summary .";
+  const checkCmd = "cspell --no-progress --no-summary --cache --cache-location .cache/cspell .";
 
   return {
     name: "CSpell",
