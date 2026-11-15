@@ -34,7 +34,6 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
       - name: Update NPM for Provenance
         run: sudo npm i -g npm@latest
-      - run: bun run build
       - name: Bump and Release
         uses: aklinker1/zero-changelog/actions/release@e5203d33d660b3e9c2cded7462fb33d88dbde393 # v0.2.5
         with:
